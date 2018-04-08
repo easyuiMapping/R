@@ -6,9 +6,9 @@
 #### 日志搜索
 ![日志搜索](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6756.PNG)
 #### 日志解析
-![日志解析](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6760.JPG)
+![日志解析](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6767.PNG)
+![日志解析](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6768.PNG)
 ![日志解析](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6752.PNG)
-![](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6758.JPG)
 #### 日志管理
 ![日志管理](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6755.PNG)
 ![日志管理](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6754.PNG)
@@ -26,5 +26,4 @@
 ![容器级服务管理](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6764.PNG)
 ![许可证管理](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6765.PNG)
 ![SMTP配置](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6766.PNG)
-![SMTP配置](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6767.PNG)
-![SMTP配置](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6768.PNG)
+
