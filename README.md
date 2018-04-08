@@ -4,8 +4,6 @@
 ## 项目预览
 ### 客户端
 #### 日志搜索
-![日志搜索](https://github.com/xif3681/img-storage/blob/master/angularjs-img/QQ%E6%88%AA%E5%9B%BE20180408152714.png)
-![日志搜索](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6751.JPG)
 ![日志搜索](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6753.PNG)
 ![](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6756.PNG)
 ![](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6760.JPG)
