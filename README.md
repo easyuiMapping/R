@@ -5,9 +5,8 @@
 ### 客户端
 #### 日志搜索
 ![日志搜索](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6756.PNG)
-![日志搜索](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6760.JPG)
 #### 日志解析
-![日志解析](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6750.JPG)
+![日志解析](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6760.JPG)
 ![日志解析](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6752.PNG)
 ![](https://github.com/xif3681/img-storage/blob/master/ar-img/IMG_6758.JPG)
 #### 日志管理
