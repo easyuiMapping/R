@@ -1,0 +1,455 @@
+@import (reference) "~ui/styles/theme";
+@import (reference) "~ui/styles/variables";
+.data-special {
+  min-width: 100px;
+}
+.con-pading {
+  margin: 0 20px;
+}
+.text-ellipsis {
+ overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+
+.parse-before {
+  padding-left: 34px;
+  bottom: 5px;
+}
+
+.parse-after {
+  padding-left: 50px;
+}
+
+.stateBtn {
+  font-size: 12px;
+  padding: 5px 6px;
+  color: #fff;
+}
+
+.stateBtn:focus {
+  outline: 5px auto rgba(255, 255, 255, 0);
+}
+
+.stateBtnON {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  postion: relative;
+  left: 2px;
+}
+
+.stateBtnOff {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  postion: relative;
+  right: 2px;
+}
+
+//火狐关于table-responsive兼容性
+@-moz-document url-prefix() {
+  fieldset {
+    display: table-cell;
+  }
+}
+
+.toaster-container {
+  z-index: 1;
+}
+
+.marLeft {
+  margin-left: 20px;
+}
+
+.data-input-rule-setting .panel-tcpudp.side-bar-show {
+  //margin-left: 30px;
+  //margin-right: 30px;
+}
+
+.sizeBold {
+  font-weight: bold;
+}
+
+.fa-check-circle {
+  color: green;
+}
+
+.fa-times-circle-o {
+  color: red;
+}
+
+.arlabel {
+  border: 2px solid #ecf0f1;
+  padding: 3px 6px 3px 1px;
+  margin-right: 6px;
+}
+
+.arTextarea {
+  border: 1px solid #b3afaf;
+}
+
+a.text-danger, a.text-danger:hover {
+  color: #e74c3c;
+}
+
+.data-navbar {
+  line-height: 2.6;
+  border-bottom: 1px solid #4d515b;
+  border-top: 1px solid #656a76;
+  div {
+    padding-left: 25px;
+  }
+}
+
+.data-p {
+  border-radius: 3px;
+  padding: 0 20px 15px;
+  margin: 20px;
+}
+
+.data-pr {
+  border-radius: 3px;
+  padding-left: 0;
+  //margin-top: 25px;
+}
+
+.data-panel {
+  border-radius: 3px;
+  padding: 0 20px 15px;
+  //margin: 25px 0;
+  .panel-body {
+    padding: 15px 0;
+  }
+  td {
+    text-align: center;
+  }
+}
+
+.data-nav {
+  ul {
+    li.sidebar-item-title.active {
+      color: #444444;
+      background-color: #dde4e6;
+    }
+    li {
+      padding: 10px 15px;
+      a {
+        display: inline-block;
+        width: 100%;
+        padding: 10px 15px;
+      }
+    }
+  }
+
+}
+
+.tcpUdpTable {
+  table {
+    thead {
+      font-weight: bold;
+    }
+    tbody {
+
+      tr {
+        td {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+
+.data-upload, .data-input-rule-setting {
+  .settings-section-container {
+    //margin-top: 20px;
+    padding: 0;
+    //padding-bottom: 20px;
+    //padding-right: 0;
+    .section-setting {
+      //width: inherit;
+    }
+  }
+  .newSetSaveSuccess {
+    margin: 70px 25px;
+  }
+  navbar {
+    font-size: 13px;
+    //font-weight: bold;
+  }
+  .panel-tcpudp {
+    //width: 80%;
+    margin: 20px;
+    border-radius: 3px;
+    //margin: 25px auto;
+
+    .form-group {
+      margin-top: 15px;
+      #tcpRadio, #udpRadio {
+        margin: 2px 0 0 -20px;
+      }
+
+    }
+  }
+
+  .panel-tcpudp-button {
+    //width: 80%;
+    margin: 75px auto;
+  }
+
+  .log-structured {
+    margin-top: 20px;
+  }
+  .data-source, .log-structured {
+    font-weight: bold;
+  }
+
+  label,input {
+    font-weight: normal;
+  }
+  .control-label {
+    text-align: left;
+  }
+}
+
+.new-pagination > .pagination > li > a {
+  border-color: #ddd;
+}
+
+.new-pagination > .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+  color: #1f6b7a;
+  background-color: #eee;
+  border-color: #ddd;
+}
+
+.new-pagination {
+  text-align: center;
+  margin-top: 25px;
+  li.active {
+    a {
+      background-color: #cfd9db;
+    }
+
+  }
+}
+
+.data-input-rule-setting {
+  #apply {
+    float: right;
+  }
+  .rule-setting-form {
+    //label {
+    //  font-weight: bold;
+    //}
+    .ruleDetails {
+      fieldset {
+        margin: 0 2px;
+        legend {
+          padding: .5em;
+          border: 0;
+          width: auto;
+          font-size: inherit;
+          margin-bottom: 0;
+        }
+      }
+
+    }
+  }
+
+  .collapsible-sidebar .sidebar-collapser {
+    left: -24px;
+  }
+  .log-sample-content {
+    display: table;
+    width: 100%;
+    p {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+  .log-sample, .rule-setting, .log-sample-all {
+    font-weight: bold;
+  }
+  .panel-heading {
+    overflow: hidden;
+    zoom: 1;
+  }
+  //zoom: 1; 是在处理兼容性问题
+  .control-label {
+    text-align: right;
+  }
+  .log-sample-all {
+    span:nth-child(1) {
+      float: left;
+    }
+    .allLogSample {
+      float: left;
+      #allLogSample, #matchLogSample, #noMatchLogSample {
+        margin: 2px 0 0 -20px;
+      }
+
+      div {
+        margin: 0 0 0 25px;
+        float: left;
+      }
+    }
+    .page-list {
+      float: right;
+
+      .pagination {
+        margin: 0;
+        height: 10px;
+        font-size: 10px;
+        .first, .last {
+          span {
+            margin-top: -2px;
+          }
+        }
+        li {
+          span {
+            padding: 0px 15px;
+          }
+        }
+      }
+    }
+  }
+.settings-section-container  .logSampleAllTab table tbody {
+    tr td {
+      vertical-align: middle;
+      //padding-left: 40px;
+    }
+    tr td button{
+      float: right;
+      //padding-left: 40px;
+    }
+    //tr:nth-of-type(even) {
+    //  background-color: #f9f9f9;
+    //}
+    //tr:nth-of-type(odd) {
+    //  background-color: #ffffff;
+    //}
+  }
+
+  .parseTable table tbody {
+    tr td {
+      vertical-align: middle;
+      border-top: 0px;
+    }
+    tr {
+      padding: 0px;
+    }
+  }
+
+  .ar-padding {
+    margin-left: -7px;
+  }
+
+}
+
+textarea.form-control.dataTextArea {
+  border-width: 0px;
+  text-align: left;
+}
+
+.successArr {
+  border: 1px solid red;
+}
+
+.successArrOk {
+  border: 1px solid green;
+}
+
+.whiteSpace {
+  white-space: pre-wrap;
+  word-wrap:break-word;
+  word-break:break-all;
+}
+
+.errorPre {
+  border: 0px;
+  padding-top: 13px;
+}
+.errorPre-pro {
+  border: 0px;
+}
+.errorSub {
+  color: #e74c3c;font-weight: normal;
+}
+.textareaResize{
+  text-align: left;
+  min-height: 50px;
+  height: auto;
+  width: 100%;
+  overflow-y:visible;
+  resize: none;
+}
+
+.textOverflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tabelResize{
+  text-align: left;
+  height: auto;
+  width: 100%;
+  overflow-y:visible;
+}
+.MultipleLinesLogsFieldset{
+  margin: 0 9px 0 2px;
+  legend {
+    padding: .5em;
+    border: 0;
+    width: auto;
+    font-size: inherit;
+    margin-bottom: 0;
+  }
+  //margin-right: 9px;
+}
+
+.textareaPattern{
+  text-align: left;
+  min-height: 30px;
+  height: auto;
+  width: 100%;
+  overflow-y:visible;
+  resize: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+}
+.ar-error-color {
+  color: red;
+  float:right;
+  text-align: right;
+  margin-right: 10px;
+}
+.ar-suc-color {
+  color: green;
+  float:right;
+  text-align: right;
+  margin-right: 10px;
+}
+//div实现placeholder
+div:empty:before{
+content: attr(placeholder);
+color:#bbb;
+}
+div:focus:before{
+content:none;
+}
+.spanAdd {
+
+  display: inline-block;
+  border: 1px solid;
+  border-radius: 50%;
+  width: 22px;
+  padding: 0 5px;
+  color: #134049;
+  background-color: #fff;
+
+
+}
+.spanDele{
+  color: #e74c3c;
+
+}
+

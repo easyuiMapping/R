@@ -1,0 +1,91 @@
+{
+	"Edit Saved Objects": "编辑已存对象",
+	"Export Everything": "导出全部对象",
+	"Import": "导入",
+	"From here you can delete saved objects, such as saved searches. You can also edit the raw data of saved objects. Typically objects are only modified via their associated application, which is probably what you should use instead of this screen. Each tab is limited to 100 results. You can use the filter to find objects not in the default list.": "您可以删除已存对象、编辑已存对象元数据。若要修改已存对象，请在其对应的应用页面进行修改。",
+	"Select All": "全选",
+	"Delete": "删除",
+	"Export": "导出",
+	"Edit": "编辑",
+	"Hide": "隐藏",
+	"No saved objects to export.": "没有要导出的已存对象。",
+	"The file could not be processed.": "无法处理该文件。",
+	"dashboards": "仪表盘",
+	"searches": "搜索",
+	"visualizations": "可视化",
+	"Filter": "过滤器",
+  "No found":"没有找到",
+  "Saved Objects":"对象管理",
+
+
+
+
+	"There is a problem with that saved object": "所保存的对象有问题",
+	"The saved search associated with this object no longer exists.": "与此对象关联的已存搜索已不存在。",
+	"The index pattern associated with this object no longer exists.": "与此对象关联的索引模式已不存在。",
+	"A field associated with this object no longer exists in the index pattern.": "与此对象关联的字段已不存在于索引模式中。",
+	"If you know what this error means, go ahead and fix it - otherwise click the delete button above.": "如果您知道这个错误意味着什么，就继续解决它吧 - 否则请点击上面的删除按钮。",
+	"Proceed with caution": "请谨慎操作",
+	"Modifying objects is for advanced users only. Object properties are not validated and invalid objects could cause errors, data loss, or worse. Unless someone with intimate knowledge of the code told you to be in here, you probably shouldn't be.": "只有高级用户才有修改权限。对象属性没有验证以及无效的对象都会导致错误、数据丢失或者更坏的结果。您最好不要独立编辑，除非有熟悉代码的人从旁协助。",
+
+
+  "DELETECURTITLE":"确定要删除所选的{{currentTabTitle}}？此操作不可撤销！",
+  "确认删除所选的对象？此操作不可撤销！": "确认删除所选的对象？此操作不可撤销！",
+  "OK":"确定",
+  "More Info":"更多信息",
+  "Fix it":"修复它",
+  "确认删除所选的": "确认删除所选的",
+  "？此操作不可撤销！": "？此操作不可撤销！",
+  "dashboards": "仪表盘",
+  "dashboard": "仪表盘",
+  "searches": "搜索",
+  "search": "搜索",
+  "visualizations": "可视化",
+  "visualization": "可视化",
+
+
+
+  "EDITTITLEOBJECT":"编辑{{title}}对象",
+  "VIEWTITLE":"查看{{title}}对象",
+  "DELETETITLEOBJECT":"删除{{title}}对象",
+  "SAVETITLEOBJECT":"保存{{title}}对象",
+  "Cancel":"取消",
+  "description":"描述",
+  "hits":"事件计数",
+  "kibanaSavedObjectMeta.searchSourceJSON":"AnyRobotSavedObjectMeta.searchSourceJSON",
+  "optionsJSON":"optionsJSON",
+  "panelsJSON":"panelsJSON",
+  "timeFrom":"timeFrom",
+  "timeRestore":"timeRestore",
+  "timeTo":"timeTo",
+  "title":"标题",
+  "uiStateJSON":"uiStateJSON",
+  "version":"版本",
+  "columns":"列",
+  "sort":"排序",
+  "visState":"visState",
+  "savedSearchId":"savedSearchId",
+  "SavedObject view":"已存对象视图",
+  "Are you sure?":"你确定吗？",
+  "You successfully deleted the":"您已成功删除",
+  "You successfully updated the":"您已成功更新",
+  "object":"对象",
+  "Error":"错误",
+  "Debug":"调试"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

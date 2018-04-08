@@ -1,0 +1,335 @@
+@import (reference) "~ui/styles/variables";
+@import (reference) "~ui/styles/mixins";
+
+.tab-dashboard {
+  background-color: @dashboard-bg;
+}
+
+dashboard-grid {
+  display: block;
+  margin: 0;
+  padding: 5px;
+}
+
+.start-screen {
+  margin: 20px;
+  background-color: @dashboard-bg;
+  padding: 20px;
+}
+
+.gridster {
+  list-style-type: none;
+  display: block;
+  background-color: @dashboard-bg;
+  margin: 0;
+  padding: 0;
+
+  .gs-resize-handle {
+    background-position: 50% 50% !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    padding: 4px;
+    height: 25px;
+    width: 25px;
+  }
+
+  .gs-w {
+    border: 2px dashed transparent;
+    //position: relative;
+
+    &:hover {
+      border-color: @kibanaGray4;
+
+      dashboard-panel {
+        .visualize-show-spy {
+          visibility: visible;
+        }
+        .panel .panel-heading .btn-group {
+          display: block !important;
+        }
+      }
+
+    }
+  }
+
+  i.remove {
+    cursor: pointer;
+  }
+
+  dashboard-panel {
+    display: block;
+    height: 100%;
+    background: @dashboard-panel-bg;
+    color: @dashboard-panel-color;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+
+    .panel {
+      margin: 0;
+      // maintain the 100% height of the panel
+      height: 100%;
+
+      // flex layout allows us to define the visualize element as "fill available space"
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border: 0 solid transparent;
+
+      .panel-heading {
+        padding: 0px 0px 0px 5px;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        display: flex;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        background-color: @white;
+        border: none;
+
+        .btn-group {
+          a {
+            color: inherit;
+          }
+          display: none;
+          white-space: nowrap;
+          flex: 0 0 auto;
+        }
+
+        .panel-title {
+          font-size: inherit;
+
+          // flexbox fix for IE10
+          // http://stackoverflow.com/questions/22008135/internet-explorer-10-does-not-apply-flexbox-on-inline-elements
+          display: inline-block;
+
+          .ellipsis();
+          flex: 1 1 auto;
+
+          i {
+            opacity: 0.3;
+            font-size: 1.2em;
+            margin-right: 4px;
+          }
+        }
+
+        .panel-move:hover {
+          cursor: move;
+        }
+
+        a {
+          color: @dashboard-panel-heading-link-color;
+          border: none;
+          background: none;
+          padding: 0px 3px;
+          &:hover {
+            color: @dashboard-panel-heading-link-hover-color;
+          }
+        }
+      }
+
+      .visualize-show-spy {
+        visibility: hidden;
+      }
+
+      .load-error {
+        text-align: center;
+        font-size: 1em;
+        display: flex;
+        flex: 1 0 auto;
+        justify-content: center;
+        flex-direction: column;
+
+        .fa-exclamation-triangle {
+          font-size: 2em;
+          color: @dashboard-panel-load-error-color;
+        }
+      }
+
+      .panel-content {
+        display: flex;
+        flex: 1 1 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+.dashboard-panel-picker > .list-group-item {
+  border-top: 0;
+}
+
+
+.div-relative{
+  position:relative;
+  height: 50px;
+}
+
+.dash-bott{
+  border-bottom: 1px solid #ccc;
+  //border-top: 1px solid #ccc;
+  height: 36px;
+  width: 100%;
+  position:absolute;
+  z-index:1;
+  top: 10px;
+}
+.dash-tap {
+  position:absolute;
+  height: 36px;
+  width: 100%;
+  z-index:2;
+  top: 10px;
+
+  ul
+  {
+      list-style-type:none;
+      margin:0;
+      padding:0;
+      padding-left: 20px;
+      height: 100%;
+      display: inline-block;
+      z-index:100;
+  }
+  li
+  {
+
+  margin: 0 2px;
+  //padding: 0 5px;
+  display: inline-block;
+  width: 130px;
+  //border-bottom: 1px solid #989393;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-radius: 5px 5px 0 0;
+  background-color: #ecf0f1;
+  text-align: left;
+  height: 34px;
+  line-height: 34px;
+  position: relative;
+
+  }
+  a {
+  color:#5A5A5A;
+  }
+
+  .Dele {
+
+    position: relative;
+    display:inline-block;
+    padding: 0;
+    right: 3px;
+    background-color: #ecf0f1;
+    outline: 0;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    width: 16px;
+    height: 16px;
+    bottom: 12px;
+    text-align: center;
+    background-image: url("~ui/images/close-gray.svg");
+    &:hover {
+    background-image: url("~ui/images/close-fill-red.svg");
+    outline: 0;
+    }
+
+  }
+  .Add {
+    display: inline-block;
+    border: 1px solid #ccc;
+    width: 22px;
+    text-align: center;
+    color: #948787;
+    position: relative;
+    bottom: 13px;
+
+  }
+  .Add-me {
+  position: relative;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  left: -4px;
+  a {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  background-image: url("~ui/images/add-gray.svg");
+  }
+  a:hover,a:focus {
+  background-image: url("~ui/images/add-red.svg");
+  }
+  }
+
+}
+
+
+.dash-tap li:hover a,
+.dash-tap ul ul:hover a,
+.dash-tap a:focus{
+         //Color: #d80100;
+         background-color: #fff;
+         border-bottom:1px solid #ccc;
+         border-radius: 5px 5px 0 0;
+         .Dele{
+          background-color: #fff;
+         }
+
+}
+.dash-tap ul li:hover ul{
+         Display: block;
+}
+
+.lcx-show {
+  display: block !important;
+}
+.lcx-hide {
+  display: none !important;
+}
+.lcx-red{
+  border-top: 2px solid #d80100 !important;
+  background-color: #fff !important;
+  height: 36px !important;
+  a {
+  border-bottom: none !important;
+  }
+  .Dele{
+   background-color: #fff;
+  }
+
+  //line-height: 37px !important;
+  //border-bottom: none !important;
+}
+.lcx-click {
+  bottom: 10px !important;
+}
+.lcx-click1 {
+  bottom: 8px !important;
+}
+.lcx-bottom {
+  bottom: 0 !important;
+}
+.lcx-display {
+  display:inline-block !important;
+}
+.add-dash {
+  float : right;
+}
+
+.textOverflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.dash-input {
+  width:110px;
+  height:28px;
+  line-height: 28px;
+  margin-left:5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline:0;
+  position: relative;
+  top: 2px;
+}

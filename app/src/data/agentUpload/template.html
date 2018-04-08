@@ -1,0 +1,81 @@
+<kbn-data-app section="tcpUdp">
+<div class=" panel panel-default data-panel data-p" ng-controller='agentCtrl'>
+  <div class="panel-body">
+    <button type="submit" class="btn btn-success" ng-click="newTcpUdp()"><span translate>新建输入</span></button>
+  </div>
+  <div class="table-responsive tcpUdpTable">
+    <table class="table alarmTable">
+      <thead>
+      <tr class="active">
+        <td style="width:45px"  translate>序号</td>
+        <td style="width:100px" translate>端口</td>
+        <td style="width:100px" translate>日志类型</td>
+        <td style="width:100px" translate>日志标签</td>
+        <td style="width:100px" translate>规则</td>
+        <td style="width:100px" translate>当前状态</td>
+        <td style="width:150px" translate>操作</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="item in items">
+        <td>{{dataIndexStart+$index + 1}}</td>
+        <td>{{item.port}}</td>
+        <td>{{item.type}}</td>
+        <td>{{item.tags}}</td>
+        <td>{{item.ruleName}}</td>
+        <td>
+          <button
+            style="position: relative"
+            ng-click="curStateChange(item)"
+            class="btn ng-scope stateBtn stateBtnON"
+            ng-class = "{1: 'btn-success', 0: ''}[item.status]"
+            aria-label="ON"
+            data-test-subj="onButton" >
+            <span class="ng-scope" translate="" >ON</span>
+            <!--  <i aria-hidden="true" class="fa fa-pause" tooltip="暂停"></i> -->
+          </button>
+          <button
+            style="position: relative"
+            ng-click="curStateChange(item)"
+            class="btn ng-scope stateBtn stateBtnOff"
+            ng-class = "{0: ' btn-danger ', 1: ''}[item.status]"
+            aria-label="OFF"
+            data-test-subj="offButton" >
+            <span class="ng-scope" translate="" >OFF</span>
+            <!--  <i aria-hidden="true" class="fa fa-play" tooltip="开始"></i> -->
+          </button>
+
+        </td>
+        <td>
+          <button
+            ng-click="newTcpUdpEdit($index)"
+            class="btn btn-default ng-scope"
+            aria-label="Edit"
+            data-test-subj="editButton">
+            <span class="sr-only ng-scope" translate="">Edit</span>
+            <i aria-hidden="true" class="fa fa-pencil"></i>
+          </button>
+          <ar-modal
+            modal-obj="modalObj"
+            ok="newTcpUdpClear($index)"
+            confirm-msg="{{'确认删除所选的数据输入？此操作不可撤销！'|translate}}"
+            ar-title = "{{'提示'|translate}}"
+          >
+          <button
+            class="btn btn-danger ng-scope"
+            aria-label="Clear"
+            data-test-subj="clearButton">
+            <span class="sr-only ng-scope" translate>Clear</span>
+            <i aria-hidden="true" class="fa fa-trash-o"></i>
+          </button>
+          </ar-modal>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+     <tm-pagination conf="pageData.indexConf"></tm-pagination>
+  </div>
+
+</div>
+<div class=" col-md-1" ></div>
+</kbn-data-app>

@@ -1,0 +1,91 @@
+{
+	"Edit Saved Objects": "Edit Saved Objects",
+	"Export Everything": "Export Everything",
+	"Import": "Import",
+	"From here you can delete saved objects, such as saved searches. You can also edit the raw data of saved objects. Typically objects are only modified via their associated application, which is probably what you should use instead of this screen. Each tab is limited to 100 results. You can use the filter to find objects not in the default list.": "From here you can delete saved objects, such as saved searches. You can also edit the raw data of saved objects. Typically objects are only modified via their associated application, which is probably what you should use instead of this screen. Each tab is limited to 100 results. You can use the filter to find objects not in the default list.",
+	"Select All": "Select All",
+	"Delete": "Delete",
+	"Export": "Export",
+	"Edit": "Edit",
+	"Hide": "Hide",
+	"No saved objects to export.": "No saved objects to export.",
+	"The file could not be processed.": "The file could not be processed.",
+	"dashboards": "dashboards",
+	"searches": "searches",
+	"visualizations": "visualizations",
+	"Filter": "Filter",
+  "No found":"No found",
+  "Saved Objects":"Saved Objects",
+
+
+
+
+	"There is a problem with that saved object": "There is a problem with that saved object",
+	"The saved search associated with this object no longer exists.": "The saved search associated with this object no longer exists.",
+	"The index pattern associated with this object no longer exists.": "The index pattern associated with this object no longer exists.",
+	"A field associated with this object no longer exists in the index pattern.": "A field associated with this object no longer exists in the index pattern.",
+	"If you know what this error means, go ahead and fix it - otherwise click the delete button above.": "If you know what this error means, go ahead and fix it - otherwise click the delete button above.",
+	"Proceed with caution": "Proceed with caution",
+	"Modifying objects is for advanced users only. Object properties are not validated and invalid objects could cause errors, data loss, or worse. Unless someone with intimate knowledge of the code told you to be in here, you probably shouldn't be.": "Modifying objects is for advanced users only. Object properties are not validated and invalid objects could cause errors, data loss, or worse. Unless someone with intimate knowledge of the code told you to be in here, you probably shouldn't be.",
+
+
+  "DELETECURTITLE":"Are you sure you want to delete the selected {{currentTabTitle}}? This action is irreversible!",
+  "确认删除所选的对象？此操作不可撤销！": "Are you sure you want to delete the selected {{currentTabTitle}}? This action is irreversible!",
+  "OK":"OK",
+  "More Info":"More Info",
+  "Fix it":"Fix it",
+  "确认删除所选的": "Are you sure you want to delete the selected ",
+  "？此操作不可撤销！": "?This action is irreversible!",
+  "dashboards": "dashboards",
+  "dashboard": "dashboard",
+  "searches": "searches",
+  "search": "search",
+  "visualizations": "visualizations",
+  "visualization": "visualization",
+
+
+
+  "EDITTITLEOBJECT":"Edit {{ title }} Object",
+  "VIEWTITLE":"View {{ title }}",
+  "DELETETITLEOBJECT":"Delete {{ title }} Object",
+  "SAVETITLEOBJECT":"Save {{ title }} Object",
+  "Cancel":"Cancel",
+  "description":"description",
+  "hits":"hits",
+  "kibanaSavedObjectMeta.searchSourceJSON":"AnyRobotSavedObjectMeta.searchSourceJSON",
+  "optionsJSON":"optionsJSON",
+  "panelsJSON":"panelsJSON",
+  "timeFrom":"timeFrom",
+  "timeRestore":"timeRestore",
+  "timeTo":"timeTo",
+  "title":"title",
+  "uiStateJSON":"uiStateJSON",
+  "version":"version",
+  "columns":"columns",
+  "sort":"sort",
+  "visState":"visState",
+  "savedSearchId":"savedSearchId",
+  "SavedObject view":"SavedObject view",
+  "Are you sure?":"Are you sure?",
+  "You successfully deleted the":"You successfully deleted the",
+  "You successfully updated the":"You successfully updated the",
+  "object":"object",
+  "Error":"Error",
+  "Debug":"Debug"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <p class="modal-title" translate>{{title}}</p>
+  <button type="button" class="close" aria-label="Close" ng-click="cancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="hint-contents">
+    <!--     <span class="hint-icon"><i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"></i></span> -->
+    <div class="hint-icon"><a></a></div>
+    <div class="hint-area">
+      <div class="hint-msg"><span translate>{{msg}}</span></div>
+      <div class="hint-check" ng-if="check">
+        <input class="hint-checkbox" type="checkbox" ng-model="formData" ng-click="updateSelection($event,formData)"/>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span translate>应用于本次导入的所有对象</span></span>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="hint-button">
+    <button type="button" ng-click="confirm()" class="btn btn-default button-ok"><span translate>确定</span>
+    </button>
+    <button type="button" ng-click="cancel()" class="btn btn-primary button-cel"><span
+      translate>取消</span></button>
+  </div>
+</div>

@@ -1,0 +1,168 @@
+<kbn-management-app section="kibana">
+  <kbn-management-indices>
+    <div ng-controller="managementIndicesCreate" class="kbn-management-indices-create">
+      <div class="page-header">
+        <h1 translate>create.H1_CONFIGURE_INDEX_PATTERN</h1>
+        <p translate>create.MUST_CONFIGURE_INDEX_PATTERN</p>
+      </div>
+      <div>
+        <form name="form" role="form" class="well" ng-submit="createIndexPattern()">
+          <div class="form-group time-and-pattern">
+            <label>
+              <input
+                ng-model="index.isTimeBased"
+                type="checkbox">
+              <span translate>create.CONTAINS_TIME_BASED_EVENTS_CHECKBOX</span>
+            </label>
+            <br>
+            <label ng-if="index.isTimeBased">
+              <input ng-model="index.nameIsPattern" type="checkbox">
+              <span translate>create.INDEX_NAME_IS_PATTERN_CHECKBOX</span>
+            </label>
+          </div>
+
+          <div class="form-group" ng-if="index.isTimeBased && index.nameIsPattern">
+            <div class="alert alert-warning">
+               <h4 translate>create.ALERT_INDEX_PATTERN_DEPRECATED</h4>
+               <p translate>create.RECOMMEND_WILD_CARD_PATTERN</p>
+               <p translate>create.RECOMMEND_WILD_CARD_PATTERN_DETAILS</p>
+            </div>
+            <label>
+              <span translate>create.INDEX_PATTERN_INTERVAL</span>&nbsp;
+              <kbn-info info="The interval at which index names rotate."></kbn-info>
+            </label>
+            <select
+              required
+              ng-options="opt.display for opt in index.nameIntervalOptions"
+              ng-model="index.nameInterval"
+              class="form-control">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label translate>create.INDEX_NAME_OR_PATTERN</label>
+            <p class="help-block" ng-if="!index.nameIsPattern" trancreate.WILDCARD_DYNAMIC_INDEX_PATTERNS</p>
+            <p class="help-block" ng-if="index.isTimeBased && index.nameIsPattern" ><span translate>create.STATIC_TEXT_IN_DYNAMIC_INDEX_PATTERNS</span> &mdash;
+            <small><a target="_blank" href="http://momentjs.com/docs/#/displaying/format/" translate>create.DATE_FORMAT_DOCS</a></small></p>
+            <input
+              ng-model="index.name"
+              ng-attr-placeholder="{{index.defaultName}}"
+              ng-model-options="{ updateOn: 'default blur', debounce: {'default': 2500, 'blur': 0} }"
+              validate-index-name
+              allow-wildcard
+              name="name"
+              required
+              type="text"
+              class="form-control">
+              <small ng-show="index.nameInterval.name == 'weeks'">
+               <strong translate>create.NOTE_COLON</strong>&nbsp;
+                <span translate>create.WEEKLY_ISO_NOTICE</span>
+                 See <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank" title="Wikipedia: ISO Week Date" translate>create.WIKI_ISO_WEEK_DATE</a>
+              </small>
+            </div>
+
+          <div class="form-group" ng-if="canExpandIndices()">
+            <label>
+              <input ng-model="index.notExpandable" type="checkbox">
+               <span translate>create.EXPAND_INDEX_PATTERN_WARNING</span>
+            </label>
+
+            <div ng-if="index.notExpandable" class="alert alert-info">
+              <span translate>create.NOT_EXPANDABLE_PART1</span>
+
+              <span translate="create.NOT_EXPANABLE_PART2" translate-values="{ indexName: '{{index.name}}' }"></span>
+            </div>
+
+            <p class="help-block" translate>create.WILDCARD_DEFAULT_EXPANDED_TO_CURRENT_TIME_RANGE_HELP</p>
+
+            <p class="help-block" translate>create.WILDCARD_DEFAULT_EXPANDED_TO_CURRENT_TIME_RANGE_EXAMPLE_HELP</p>
+          </div>
+
+          <section>
+            <div class="alert alert-danger" ng-repeat="err in index.patternErrors" translate>
+              {{err}}
+            </div>
+
+            <div class="alert alert-info" ng-if="index.samples">
+              <span translate>create.SAMPLE_ALERT</span>
+              <ul>
+                <li ng-repeat="sample in index.samples" translate>{{sample}}</li>
+              </ul>
+              <button type="button" ng-click="moreSamples(true)" class="btn btn-default">
+                <span translate>create.EXPAND_SEARCH</span>
+              </button>
+            </div>
+
+            <div class="alert alert-{{index.existing.class}}" ng-if="index.existing">
+             <span translate='create.EXISTING_MATCH_PERCENT' translate-values="{ indexExistingMatchPercent: '{{index.existing.matchPercent}}' }"></span>
+              <ul>
+                <li ng-repeat="match in index.existing.matches | orderBy:'toString()'| limitTo: index.sampleCount" translate>{{match}}</li>
+              </ul>
+              <button
+                ng-if="index.sampleCount < index.existing.matches.length"
+                ng-click="moreSamples()"
+                type="button"
+                class="btn btn-default">
+                <span translate>create.EXPAND_SEARCH</span>
+              </button>
+            </div>
+
+            <div class="alert alert-info" ng-if="index.existing.failures.length">
+              <span translate>create.NON_MATCHING_INDICES_AND_ALIASES</span>
+              <ul>
+                <li ng-repeat="match in index.existing.failures | limitTo: index.sampleCount" translate>{{match}}</li>
+              </ul>
+              <a
+                ng-if="index.sampleCount < index.existing.matches.length"
+                ng-click="moreSamples()"
+                class="alert-link">
+                <span translate>create.MORE</span>
+              </a>
+            </div>
+          </section>
+
+          <div class="form-group" ng-if="index.isTimeBased && !index.fetchFieldsError">
+            <label>
+              <span translate>create.TIME_FIELD_NAME</span>
+              &nbsp;
+              <kbn-info info="{{'This field will be used to filter events with the global time filter'|translate}}"></kbn-info>
+              &nbsp;
+              <small>
+                &nbsp;
+                <a ng-click="refreshFieldList();" translate>create.REFRESH_FIELDS</a>
+              </small>
+            </label>
+<!--             <select
+              required
+              ng-if="!index.fetchFieldsError"
+              ng-options="field.name for field in index.dateFields"
+              ng-model="index.timeField"
+              auto-select-if-only-one="index.dateFields"
+              class="form-control">
+            </select> -->
+<!--             luo.chunxiang -->
+<!--             仅支持基于@timestamp创建索引， -->
+            <select
+              required
+              ng-if="!index.fetchFieldsError"
+              ng-options="field.name for field in indexDateFields"
+              ng-model="index.timeField"
+              auto-select-if-only-one="index.dateFields"
+              class="form-control">
+            </select>
+          </div>
+
+          <button
+            data-test-subj="submitCreateIndexPatternFromExistingForm"
+            ng-disabled="form.$invalid || index.fetchFieldsError"
+            ng-class="index.fetchFieldsError ? 'btn-default' : 'btn-success'"
+            type="submit"
+            class="btn">
+            <span ng-hide="form.name.$error.indexNameInput" translate>{{index.fetchFieldsError || "Create" }}</span>
+            <span ng-show="form.name.$error.indexNameInput" translate>create.INVALID_INDEX_PATTERN</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </kbn-management-indices>
+</kbn-management-app>

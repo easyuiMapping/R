@@ -1,0 +1,120 @@
+<div ng-controller="kbnLoginApp" class="main-body" ng-keyup="enterEvent($event)">
+  <div class="top-row"></div>
+  <div class="login-left">
+    <div class="top-nav">
+      <div class="col-md-1"></div>
+      <div class="logo"></div>
+      <div class="footer form-group footer-left">
+        <div>
+          <div class="log-eisoo"></div>
+          <div class="message">
+            <span><span translate>爱数</span> {{productInfo.productName}} {{version.anyrobot_major}}.{{version.anyrobot_minor}}.{{version.anyrobot_reversion}}.{{version.anyrobot_build}} ({{version.anyrobot_buildDate}})</span>&nbsp;&nbsp;
+            <span><span translate>型号</span>:{{productInfo.productModel}}</span>
+          </div>
+          <div class="message ng-binding">
+            <span translate>版权所有</span> © 2016-{{fullYear}} <span translate>上海爱数信息技术股份有限公司</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="login-right">
+
+    <div class="top-nav">
+      <div>
+        <!-- 后台管理系统跳转 -->
+        <div class="btn-group" keyboard-nav style="z-index:1000;margin-right: 40px;top: 45px;float:right;cursor: pointer">
+          <div>
+            <span><a href="{{adminUrl}}" target="_blank" style="color: #2D2D2D" translate>后台管理系统</a></span>
+          </div>
+        </div>
+        <!-- 语言选择功能 -->
+        <div class="btn-group" dropdown keyboard-nav style="z-index:1000;margin-right: 40px;top: 45px;float:right;cursor: pointer"
+             ng-controller="LanguageController">
+
+          <div id="simple-btn-keyboard-admin" dropdown-toggle>
+            <i class="fa fa-globe" aria-hidden="true" style="font-size: 18px"></i>
+            <span>{{curLang}}</span>
+            <span class="caret"></span>
+          </div>
+          <ul class=" dropdown-menu ar-dropdown-menu" id="ar-dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-admin" style="top: 28px">
+            <li role="menuitem" ng-repeat="item in langList">
+              <a href="javascript:void(0)" ng-click="setLang(item.value)" style="margin-left: 0">{{item.title}}</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+    <div ng-show="!appLoginErr" class="main-c form-group">
+
+      <div>
+        <form class="login-form">
+          <div class="form-group">
+            <div class="welcome">
+              <h3>
+                <span translate>欢迎登录</span>
+                <span style="color:red;" translate>jhd</span>
+              </h3>
+            </div>
+          </div>
+          <div class="">
+            <div class="ar-error">
+              <div ng-show="usernameError" class=" ">
+                <label class="control-label" translate>请输入用户名</label>
+              </div>
+              <div ng-show="errorMessge" class=" ">
+                <label class="control-label">{{errorCode|translate}}</label>
+              </div>
+              <div ng-show="systermError" class=" ">
+                <label class="control-label" translate>服务异常！</label>
+              </div>
+              <div ng-show="passwordError" class=" ">
+                <label class="control-label" translate>请输入密码</label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group inner-addon left-addon">
+            <div>
+              <i class="fa fa-user fa-lg fa-fw"></i>
+              <input type="text" ng-model="username" class="form-control" id="username" name="username"
+                     autocomplete="off" placeholder="{{'用户名'|translate}}" ng-keyup="enterEvent($event)"/>
+            </div>
+          </div>
+
+          <div class="form-group  inner-addon left-addon ">
+            <div>
+              <i class="fa fa-lock fa-lg fa-fw"></i>
+              <input type="text" name="password" onfocus="this.type='password'" autocomplete="off" ng-model="password"
+                     class="form-control" id="password" name="password" placeholder="{{'密码'|translate}}"
+                     ng-keyup="enterEvent($event)"/>
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <button type="submit" ng-click="loginSubmit()" class="btn login "><span translate>登录</span></button>
+          </div>
+        </form>
+        <div class="footer form-group footer-right">
+          <div>
+            <div class="message">
+              <span ng-if="productInfo.authStatus == 0" translate>当前产品尚未授权</span>
+              <span ng-if="productInfo.authStatus == 1" translate>当前产品已正式授权，剩余使用天数：无限制</span>
+              <span ng-if="productInfo.authStatus == 2"><span translate>当前产品为测试版本，剩余试用天数：</span>{{productInfo.remainingTime}} <span
+                translate>天</span></span>
+              <span ng-if="productInfo.authStatus == 3" translate>当前产品授权已过期，剩余试用/使用天数：0 天</span>
+              <span ng-if="productInfo.authStatus == 4" translate>当前产品授权已失效， 剩余使用天数：---</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div ng-show="appLoginErr" class="app-login-err">{{appLoginErr|translate}}</div>
+  </div>
+
+</div>

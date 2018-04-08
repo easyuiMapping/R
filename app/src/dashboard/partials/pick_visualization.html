@@ -1,0 +1,14 @@
+<div ng-switch on="mode" ng-init="mode = 'visualization'" class="dashboard-panel-picker">
+  <ul class="nav nav-tabs">
+    <li ng-class="{active: mode == 'visualization'}"><a ng-click="mode='visualization'" title="Visualizations" ><span translate>Visualizations</span></a></li>
+    <li ng-class="{active: mode == 'search'}"><a ng-click="mode='search'" title="Searches" ><span translate>Searches</span></a></li>
+  </ul>
+
+  <div class="list-group-item" ng-switch-when="visualization">
+    <saved-object-finder title="{{'Choose a visualization'|translate}}" type="visualizations" on-choose="opts.addVis"></saved-object-finder>
+  </div>
+
+  <div class="list-group-item" ng-switch-when="search">
+    <saved-object-finder title="{{'Choose a search'|translate}}" type="searches" on-choose="opts.addSearch"></saved-object-finder>
+  </div>
+</div>

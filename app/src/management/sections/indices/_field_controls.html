@@ -1,0 +1,21 @@
+<div class="actions">
+  <a ng-href="{{ kbnUrl.getRouteHref(field, 'edit') }}" aria-label="Edit| translate" class="btn btn-xs btn-default">
+    <span class="sr-only"  translate>Edit</span>
+    <i aria-hidden="true" class="fa fa-pencil"></i>
+  </a>
+
+
+  <ar-modal
+    modal-obj="modalObj"
+    ok="remove(field)"
+    confirm-msg="{{ 'deleteEditorFieldName' | translate:'{ EditorFieldName: field.name}' }}"
+    ar-title = "{{'提示'|translate}}"
+  >
+  <button
+    ng-if="field.scripted"
+    class="btn btn-xs btn-danger"
+    aria-label="Delete">
+    <i aria-hidden="true" class="fa fa-trash"></i>
+  </button>
+  </ar-modal>
+</div>

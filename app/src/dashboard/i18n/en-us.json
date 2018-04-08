@@ -1,0 +1,54 @@
+{
+	"lcx-flats": "",
+
+	"Ready to get started?": "Ready to get started?",
+	"Click the": "Click the",
+	"button in the menu bar above to add a visualization to the dashboard.": "button in the menu bar above to add a visualization to the dashboard.",
+	"If you haven't setup a visualization yet visit the": "If you haven't setup a visualization yet visit the",
+	"Visualize": "Visualize",
+	"lcx-left": "\"",
+	"lcx-right": "\"",
+	"tab to create your first visualization.": "tab to create your first visualization.",
+	"Dashboard": "Dashboard",
+	"New Dashboard": "New Dashboard",
+	"Save Dashboard": "Save Dashboard",
+	"Load Saved Dashboard": "Load Saved Dashboard",
+	"Share": "Share",
+	"Add Visualization": "Add Visualization",
+	"Options": "Options",
+	"Save As": "Save As",
+	"Store time with dashboard": "Store time with dashboard",
+	"Save": "Save",
+	"Change the time filter to the currently selected time each time this dashboard is loaded": "Change the time filter to the currently selected time each time this dashboard is loaded",
+	"dashboard": "dashboard",
+	"dashboards": "dashboards",
+	"No matching saved searches found.": "No matching saved searches found.",
+	"manage Saved Searchs": "manage Saved Searchs",
+	"Visualizations": "Visualizations",
+	"visualizations": "visualizations",
+	"visualization": "visualization",
+	"Visualization": "Visualization",
+	"Saved Searche": "Saved Searche",
+	"saved searches": "saved searches",
+	"Use dark theme": " Use dark theme",
+	"Searches": "Searches",
+	"Dashboard title": "Dashboard title",
+
+
+
+	"Saved Dashboard as": "Saved Dashboard as",
+	"Dashboard": "Dashboard",
+
+	"删除标签页": "Delete Tab",
+	"确认删除所选的标签页？此操作不可撤销！": "Are you sure you want to delete the selected tab? This action is irreversible !",
+	"确定": "OK",
+	"取消": "Cancel",
+	"默认标签页": "Default Tab",
+	"新标签页": "New Tab",
+	"Add-dash": "Add Visualization",
+	"关闭标签页": "Close the tab",
+	"打开新的标签页": "Open a new tab"
+
+
+
+}

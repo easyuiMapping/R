@@ -1,0 +1,34 @@
+<div class="app-container data-upload">
+  <div class="app-container">
+<!--     <bread-crumbs class="bread-crumbs--navbar" omit-current-page="true"></bread-crumbs> -->
+    <kbn-top-nav name="data-subnav" data-test-subj="managementNav">
+      <div class="localTabs">
+        <span ng-if="!sectionName" class="localTab">
+          {{::section.display}}
+        </span>
+        <a
+          ng-if="sectionName"
+          ng-repeat="section in sections"
+          class="localTab"
+          ng-class="{ 'localTab-isSelected': section.active, 'localTab-disabled': !section.url }"
+          kbn-href="{{::section.url}}"
+          data-test-subj="{{::section.name}}"
+          tooltip="{{::section.tooltip}}"
+          tooltip-placement="bottom"
+          tooltip-popup-delay="400"
+          tooltip-append-to-body="1"
+        >
+          {{::section.subNav|translate}}
+        </a>
+      </div>
+
+    </kbn-top-nav>
+
+    <div role="main"  class="settings-section-container {{section.name}}-settings" ng-transclude></div>
+
+
+  </div>
+</div>
+
+
+

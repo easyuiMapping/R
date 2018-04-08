@@ -1,0 +1,90 @@
+.modal-dialog {
+  top: 200px;
+}
+.confirmModal, .edModal, .arDownModal, .aboutModal {
+  .modal-sm {
+    width: 480px;
+  }
+  .modal-content {
+    //margin-top: 40%;
+  }
+  .modal-title {
+    font-size: 16px;
+    height: 0px;
+    color: #868686;
+  }
+  .modal-header {
+    padding: 9px 20px;
+    border-top: 3px solid #da0000;
+    .close {
+        color: #000;
+      }
+  }
+  .modal-body {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-size: 13px;
+
+    .hint-area {
+      .hint-msg {
+        overflow: auto;
+        width: 100%;
+        max-height: 80%;
+      }
+      .hint-check {
+        margin-top: 12px;
+
+        .hint-checkbox {
+          position: absolute;
+        }
+      }
+    }
+  }
+  .modal-footer {
+    padding: 5px 20px;
+    text-align: left;
+    background-color: #f2f2f2;
+    .hint-button {
+        //border-top: 1px solid #e5e5e5;
+        height: 32px;
+
+        .btn {
+            font-size: 13px !important;
+            height: 28px;
+            width: 90px;
+            outline: 0;
+          }
+        .button-ok {
+            float: right;
+            background-color: #da0000;
+          }
+        .button-cel {
+            float: right;
+            margin-right: 10px;
+            background-color: #ddd;
+            color: #2D2D2D;
+            border: 1px solid #bebebe;
+        }
+      }
+
+  }
+
+  .modal-footer .hint-button .button-ok:hover,
+  .modal-footer .hint-button .button-ok:focus {
+    background-color: #b31515;
+  }
+  .modal-footer .hint-button .button-cel:hover,
+  .modal-footer .hint-button .button-cel:focus {
+    background-color: #bebebe;
+  }
+  .modal-header .close:hover,
+  .modal-header .close:focus {
+    color: #da0000;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+  }
+
+
+}

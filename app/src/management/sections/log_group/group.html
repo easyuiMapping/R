@@ -1,0 +1,296 @@
+<kbn-management-app section="kibana">
+	<kbn-management-group>
+		<div class="panel panel-default panel-p">
+			<div class="group-main clearfix">
+				<div class="group-left ">
+					<!-- <div class="group-title-div"><span class="group-title" translate>日志分组</span></div> -->
+					<div class="group-btn-new-div clearfix">
+						<button class="btn btn-success" ng-click="newGroup()" title="{{'新建'|translate}}" ><i class="fa fa-plus" aria-hidden="true"></i><span translate >新建</span></button>
+
+						<button class="btn btn-warning" ng-click="editGroup()" title="{{'编辑|translate'}}" ng-disabled="seletedNode.groupId === allLogNode.groupId"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span translate>编辑</span></button>
+						<button class="btn btn-danger" title="{{'删除|translate'}}"
+							ng-disabled="seletedNode.groupId === allLogNode.groupId"
+							ng-if="seletedNode.groupId === allLogNode.groupId"
+						>
+						<i aria-hidden="true" class="fa fa-trash-o"></i><span translate>删除</span>
+						</button>
+
+						<ar-modal
+						  ng-if="seletedNode.groupId !== allLogNode.groupId"
+
+						  modal-obj="modalObj"
+						  ok="deletGroup()"
+						  confirm-msg="{{'确定删除所选的日志分组及其子分组？此操作无法撤销！'|translate}}"
+						  ar-title = "{{'提示'|translate}}"
+						>
+						<button class="btn btn-danger" title="{{'删除|translate'}}" > <i aria-hidden="true" class="fa fa-trash-o"></i><span translate>删除</span>
+						</button>
+						</ar-modal>
+					</div>
+					<div class="group-a-dev-p">
+						<div ng-if="noActiveItemScope" class="noActiveItemScope" translate>请选择要操作的节点！</div>
+					</div>
+					<div class="group-treecontrol">
+						<div class="log-tree angularTreeTemplate">
+						    <!-- 日志分组树 -->
+						    <ul id="logTree" class="ztree"></ul>
+
+						</div>
+					</div>
+				</div>
+				<div class="group-right">
+					<div class="warp">
+							<div ng-class="{true:'group-sub-title-en',false :'group-sub-title'}[lang == 'en-us']"><span translate>分组名称</span></div>
+							<div class="group-sub-cont">{{seletedNode.groupName}}</div>
+					</div>
+
+					<div class="warp" ng-if="groupingLevel === 'Subgroup'">
+						<div ng-class="{true:'group-sub-title-en',false :'group-sub-title'}[lang == 'en-us']">
+								<span translate>继承定义</span>
+
+								<kbn-info
+								  	placement="right"
+								  	info='子分组将继承其所属父分组的分组定义。'
+								">
+								</kbn-info>
+
+						</div>
+						<div class="group-sub-cont  grouping-definitions">
+							<fieldset class = "MultipleLinesLogsFieldset" >
+							  <legend translate>常规</legend>
+							  <div  class="g-high-normally">
+									<div class="group-sub-sub-title">
+											<span class="group-sub-tit" translate>来源主机:</span>
+											<!-- <span ng-repeat="host in seletedNode.inheritFilters.host" class="group-type">	{{host}}</span> -->
+											<div style="">
+												<laber-filter labels = "inheritFilters.host" type = "NotEditable"></laber-filter>
+												<laber-filter labels = "typeAll" type = "NotEditable" ng-show="!inheritFilters.host ||inheritFilters.host.length == 0"></laber-filter>
+											</div>
+									</div>
+									<div class="group-sub-sub-title">
+											<span class="group-sub-tit" translate>日志类型:</span>
+											<!-- <span ng-repeat="type in seletedNode.inheritFilters.type" class="group-type">	{{type}}</span> -->
+											<laber-filter labels = "inheritFilters.type" type = "NotEditable" ></laber-filter>
+											<laber-filter labels = "typeAll" type = "NotEditable" ng-show="!inheritFilters.type || inheritFilters.type.length == 0"></laber-filter>
+									</div>
+									<div class="group-sub-sub-title">
+											<span class="group-sub-tit" translate>日志标签:</span>
+
+											<!-- <span ng-repeat="tag in seletedNode.inheritFilters.tags" class="group-type">	{{tag}}</span> -->
+											<laber-filter labels = "inheritFilters.tags" type = "NotEditable"></laber-filter>
+											<laber-filter labels = "typeAll" type = "NotEditable" ng-show="!inheritFilters.tags || inheritFilters.tags.length == 0"></laber-filter>
+									</div>
+
+
+							  </div >
+							</fieldset>
+
+
+							<fieldset class = "MultipleLinesLogsFieldset" ng-if="inheritFilters  && inheritFilters.advance.length !== 0 ">
+								<legend translate>高级</legend>
+
+								<div class="g-high-nor-Inheritance">
+										<p ng-repeat="advance in inheritFilters.advance track by $index">{{advance}}</p>
+								</div>
+							</fieldset>
+
+
+
+						</div>
+
+
+					</div>
+
+					<div class="warp">
+							<div ng-class="{true:'group-sub-title-en',false :'group-sub-title'}[lang == 'en-us']">
+									<span translate>分组定义</span>
+									<kbn-info
+									  	placement="right"
+									  	info='分组定义分为常规和高级2种模式，常规模式下，您可以通过选择来源主机、日志类型和日志标签3个字段值的组合筛选日志分组；高级模式下，您可通过搜索语法自定义筛选日志分组。'
+									">
+									</kbn-info>
+
+							</div>
+							<div class="group-sub-cont  grouping-definitions">
+								<fieldset class = "MultipleLinesLogsFieldset" ng-if="seletedNode.filters.advance === ''">
+								  <legend translate>常规</legend>
+								  <div  class="g-high-normally">
+										<div class="group-sub-sub-title">
+												<span class="group-sub-tit" translate>来源主机:</span>
+												<laber-filter labels = "currentFilters.host" type = "NotEditable"></laber-filter>
+												<laber-filter labels = "typeAll" type = "NotEditable" ng-show="!currentFilters.host ||currentFilters.host.length == 0"></laber-filter>
+										</div>
+										<div class="group-sub-sub-title">
+												<span class="group-sub-tit" translate>日志类型:</span>
+												<!-- <span ng-repeat="type in seletedNode.filters.type" class="group-type">	{{type}}</span> -->
+												<laber-filter labels = "currentFilters.type" type = "NotEditable"></laber-filter>
+												<laber-filter labels = "typeAll" type = "NotEditable" ng-show="!currentFilters.type || currentFilters.type.length == 0"></laber-filter>
+										</div>
+										<div class="group-sub-sub-title">
+												<span class="group-sub-tit" translate>日志标签:</span>
+
+												<!-- <span ng-repeat="tag in seletedNode.filters.tags" class="group-type">	{{tag}}</span> -->
+												<laber-filter labels = "currentFilters.tags" type = "NotEditable"></laber-filter>
+												<laber-filter labels = "typeAll" type = "NotEditable" ng-show="!currentFilters.tags || currentFilters.tags.length == 0"></laber-filter>
+										</div>
+
+
+								  </div >
+								</fieldset>
+
+								<fieldset class = "MultipleLinesLogsFieldset" ng-if="seletedNode.filters.advance !== ''">
+									<legend translate>高级</legend>
+
+									<div class="g-high-nor-Inheritance">
+										<p>	{{seletedNode.filters.advance}}</p>
+									</div>
+								</fieldset>
+
+
+
+							</div>
+					</div>
+
+					<div class="warp">
+							<div ng-class="{true:'group-sub-title-en',false :'group-sub-title'}[lang == 'en-us']">
+									<span translate>备注</span>
+
+							</div>
+							<div class="group-sub-cont">
+									<p>	{{seletedNode.description}}</p>
+
+							</div>
+					</div>
+
+					<div class="horizontal">
+
+						<div >
+
+							<ul class="nav nav-tabs">
+							  <li  ng-class="{ active: tab === fieldType.id }" ng-repeat="fieldType in fieldTypes track by $index">
+							    <a ng-click="changeTab(fieldType)">
+							      <span translate>{{ fieldType.title }}</span>
+							    </a>
+							  </li>
+							</ul>
+							<div ng-show="tab == 'Event'" class="fields indexed-fields">
+
+								<div class="g-nav">
+									<div>
+										<!-- 时间选择器 -->
+										<ar-top-nav class="ar-top-nav" name="log-group" config="topNavMenu">
+
+										</ar-top-nav>
+										<!-- 搜索框 -->
+										<navbar >
+										  <form name="query-group"
+										    class="fill inline-form"
+										    ng-submit="getView()"
+										    role="form">
+
+										    <div class="typeahead">
+										      <div class="input-group">
+										        <input type="text" class="form-control input-search" ng-model="query">
+										        <button type="submit"   class="btn btn-default button-search"  >
+										          <span aria-hidden="true" class="fa fa-search"></span>
+										        </button>
+										      </div>
+										    </div>
+
+										  </form>
+
+										</navbar>
+									</div>
+
+									<div>
+										<!-- 事件列表 -->
+										<div class="log-display">
+
+											<div ng-show = "!goViewClick" translate>请点击查看预览</div>
+											<div ng-show = "goViewClick">
+												<!--头部导航-->
+												<div class="btn-group log-navs"  >
+												  <div >
+												    <span class="log-title"><span translate>事件总数</span>({{total}})</span>
+
+												  </div>
+
+												</div>
+												<!-- 分页 -->
+												<log-pagination conf="discover.settingConf"></log-pagination>
+											</div>
+
+
+										</div>
+
+										<div class="discover-table" fixed-scroll ng-show = "goViewClick">
+										  <ar-doc-table
+										    hits="arRows"
+										    index-pattern="indexPattern"
+										    sorting="state.sort"
+										    columns="state.columns"
+										    infinite-scroll="true"
+										    ">
+										  </ar-doc-table>
+										</div>
+
+									</div>
+
+
+								</div>
+
+							</div>
+							<div ng-show="tab == 'Optional fields'" class="fields scripted-fields">
+								<div class="log-display">
+
+									<div>
+										<!--头部导航-->
+										<div class="btn-group log-navs"  >
+										  <div >
+										    <span class="log-title"><span translate>可选字段总数</span>({{fieldstotal}})</span>
+
+										  </div>
+
+										</div>
+										<!-- 分页 -->
+										<log-pagination conf="discover.settingConf"></log-pagination>
+									</div>
+
+
+								</div>
+							<!-- 可选字段 -->
+								<div  fixed-scroll>
+
+									<table class=" table">
+									  <thead >
+										<tr class="g-bold">
+											<td ng-repeat="column in columns track by $index" translate>{{column.title}}</td>
+
+										</tr>
+									  </thead>
+
+									  <tbody>
+									  <tr ng-repeat="row in fieldRow track by $index" class="g-font">
+									    <td>{{row.fieldName}}</td>
+									    <td>{{row.type}}</td>
+									    <!-- <td>{{row.mapping}}</td> -->
+									  </tr>
+									  </tbody>
+									</table>
+
+								</div>
+
+							</div>
+						</div>
+
+
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</kbn-management-group>
+
+</kbn-management-app>

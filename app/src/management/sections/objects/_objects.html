@@ -1,0 +1,86 @@
+<kbn-management-app section="kibana">
+  <kbn-management-objects class="container-fluid">
+    <div class="header">
+      <h2 class="title" translate>Edit Saved Objects</h2>
+      <button class="btn btn-default controls" ng-click="exportAll()" translate><i aria-hidden="true" class="fa fa-download"></i> Export Everything</button>
+      <file-upload on-read="importAll(fileContents)" upload-selector="button.upload">
+        <button class="btn btn-default controls upload" ng-click translate>
+          <i aria-hidden="true" class="fa fa-upload"></i> Import
+        </button>
+      </file-upload>
+    </div>
+    <p  translate>
+      From here you can delete saved objects, such as saved searches. You can also edit the raw data of saved objects. Typically objects are only modified via their associated application, which is probably what you should use instead of this screen. Each tab is limited to 100 results. You can use the filter to find objects not in the default list.
+    </p>
+    <form role="form">
+      <input aria-label="{{'Filter'|translate}}" ng-model="advancedFilter" class="form-control span12" type="text" placeholder="{{'Filter'|translate}}" />
+    </form>
+
+    <ul class="nav nav-tabs">
+      <li class="kbn-management-tab" ng-class="{ active: state.tab === service.title }" ng-repeat="service in services">
+        <a title="{{ service.title |translate}}" ng-click="changeTab(service)" translate>{{ service.title }}
+          <small translate>
+          ({{service.data.length}}<span ng-show="service.total > service.data.length" translate> of {{service.total}}</span>)
+          </small>
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="action-bar">
+        <label>
+          <input type="checkbox" ng-checked="currentTab.data.length > 0 && selectedItems.length == currentTab.data.length" ng-click="toggleAll()" />
+          <span translate>Select All </span>
+        </label>
+        <ar-modal
+          modal-obj="modalObj"
+          ok="bulkDelete()"
+          ar-title = "{{'提示'|translate}}"
+        >
+        <a ng-if="selectedItems.length !== 0"
+           class="btn btn-xs btn-danger" aria-label="{{ 'DELETECURTITLE' | translate:translationData }}" translate><i aria-hidden="true" class="fa fa-trash"></i> Delete</a>
+        </ar-modal>
+        <a ng-if="selectedItems.length == 0" ng-disabled="selectedItems.length == 0"
+           class="btn btn-xs btn-danger" aria-label="{{ 'DELETECURTITLE' | translate:translationData }}" translate><i aria-hidden="true" class="fa fa-trash"></i> Delete</a>
+        <a ng-disabled="selectedItems.length == 0"
+          ng-click="bulkExport()"
+          class="btn btn-xs btn-default" aria-label="Export" translate><i aria-hidden="true" class="fa fa-download"></i> Export</a>
+      </div>
+      <div ng-repeat="service in services" ng-class="{ active: state.tab === service.title }" class="tab-pane">
+        <ul class="list-unstyled">
+          <li class="item" ng-repeat="item in service.data | orderBy:'title'">
+            <div class="actions pull-right">
+              <button
+                ng-click="edit(service, item)"
+                class="btn btn-default"
+                aria-label="Edit">
+                <span class="sr-only" translate>Edit</span>
+                <i aria-hidden="true" class="fa fa-pencil"></i>
+              </button>
+
+              <button
+                ng-click="open(item)"
+                class="btn btn-info"
+                aria-label="Hide">
+                <span class="sr-only" translate>Hide</span>
+                <i aria-hidden="true" class="fa fa-eye"></i>
+              </button>
+            </div>
+
+            <div class="pull-left">
+              <input
+                ng-click="toggleItem(item)"
+                ng-checked="selectedItems.indexOf(item) >= 0"
+                type="checkbox" >
+            </div>
+
+            <div class="item-title">
+              <a ng-click="edit(service, item)">{{ item.title }}</a>
+            </div>
+          </li>
+          <li ng-if="!service.data.length" class="empty"><span translate>No found</span>'<span>{{service.title| translate}}</span>'</li>
+        </ul>
+      </div>
+    </div>
+
+  </kbn-management-objects>
+</kbn-management-app>

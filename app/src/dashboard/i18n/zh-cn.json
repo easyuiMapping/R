@@ -1,0 +1,58 @@
+{
+	"Filter...": "过滤器...",
+	"Dashboard title": "仪表板标题",
+	"No results found": "未找到结果",
+
+	"lcx-flats": "个",
+	"Ready to get started?": "准备好了吗？",
+	"Click the": "点击上面菜单栏的",
+	"button in the menu bar above to add a visualization to the dashboard.": "按钮以添加可视化到仪表盘。",
+	"If you haven't setup a visualization yet visit the": "如果您尚未设置可视化，请访问",
+	"Visualize": "可视化",
+	"lcx-left": "“",
+	"lcx-right": "”",
+	"tab to create your first visualization.": "标签页以创建您的第一个可视化。",
+	"Dashboard": "仪表盘",
+	"New Dashboard": "新建",
+	"Save Dashboard": "保存",
+	"Load Saved Dashboard": "打开",
+	"Share": "分享",
+	"Add Visualization": "添加",
+	"Options": "选项",
+	"Save As": "保存为",
+	"Store time with dashboard": "使用仪表盘存储时间",
+	"Save": "保存",
+	"Change the time filter to the currently selected time each time this dashboard is loaded": "每次加载此仪表板时，都要将时间过滤器更改为当前选择的时间",
+	"dashboard": "仪表盘",
+	"dashboards": "仪表盘",
+	"No matching saved searches found.": "没有找到匹配的已存搜索。",
+	"manage Saved Searchs": "管理已存搜索",
+	"Visualizations": "可视化",
+	"visualizations": "可视化",
+	"visualization": "可视化",
+	"Visualization": "可视化",
+	"Saved Searche": "已存搜索",
+	"saved searches": "已存搜索",
+	"saved searche": "已存搜索",
+	"Use dark theme": " 使用黑色主题",
+	"Searches": "搜索",
+	"Dashboard title": "仪表盘标题",
+
+
+
+	"Saved Dashboard as": "保存仪表板为",
+	"Dashboard": "仪表盘",
+
+	"删除标签页": "删除标签页",
+	"您确定要删除选定的标签页吗？此操作无法撤销": "您确定要删除选定的标签页吗？此操作无法撤销",
+	"确认删除所选的标签页？此操作不可撤销！": "确认删除所选的标签页？此操作不可撤销！",
+	"确定": "确定",
+	"取消": "取消",
+	"默认标签页": "默认标签页",
+	"新标签页": "新标签页",
+	"Add-dash": "添加可视化",
+	"关闭标签页": "关闭标签页",
+	"打开新的标签页": "打开新的标签页"
+
+
+}

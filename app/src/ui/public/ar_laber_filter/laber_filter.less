@@ -1,0 +1,126 @@
+@import (reference) "~ui/styles/variables";
+.g-label-add {
+  //min-width: 56px;
+  background-color: #c7872b !important;
+}
+
+.laber-filter-bar {
+  padding: 5px 6px 3px 6px;
+  background: @filter-bar-bar-bg;
+  border-bottom: 0;
+
+  .ace_editor {
+    height: 175px;
+    margin: 15px 0;
+  }
+
+  .filter-edit-alias {
+    margin-top: 15px;
+  }
+
+  .filter-link {
+    position: relative;
+    display: inline-block;
+    border: 4px solid transparent;
+    margin-bottom: 4px;
+  }
+
+  .filter-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .filter, .filter-not {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    // Number of filter icons multiplied by icon width
+    // Escaped to prevent less math
+    //min-width: ~"calc(5*(1.414em + 13px))";
+    min-width: 56px;
+    font-size: @font-size-small;
+    background-color: #569f76;
+    color: @filter-bar-bar-filter-color;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    max-width: 100%;
+
+    // Replace padding with border so absolute controls position correctly
+    padding: 4px 8px;
+    border-radius: 12px;
+
+
+    .filter-actions-not {
+      display: none;
+      opacity: 0;
+    }
+
+    > .filter-actions {
+      font-size: 1.1em;
+      line-height: 1.4em;
+      position: absolute;
+      padding: 4px 8px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: none;
+      text-align: center;
+      white-space: nowrap;
+
+      > * {
+        border-right: 1px solid rgba(255, 255, 255, 0.4);
+        padding-right: 0;
+        margin-right: 5px;
+
+        &:last-child {
+          border-right: 0;
+          padding-right: 0;
+          margin-right: 0;
+        }
+
+        .unpinned {
+          //.opacity(.7);
+        }
+      }
+    }
+
+    &.negate {
+      background-color: @filter-bar-bar-filter-negate-bg;
+    }
+
+    a {
+      color: @filter-bar-bar-filter-color;
+    }
+
+    &.disabled {
+      opacity: 0.6;
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.3) 10px, rgba(255,255,255,.3) 20px);
+    }
+
+    &.disabled:hover {
+      span {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .filter {
+    &:hover {
+      > .filter-actions {
+        display: block;
+      }
+
+      > .filter-description {
+        opacity: 0.15;
+        background: transparent;
+        overflow: hidden;
+      }
+      > .filter-description-not {
+        opacity: none;
+      }
+    }
+  }
+
+
+}

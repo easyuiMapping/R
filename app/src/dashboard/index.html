@@ -1,0 +1,90 @@
+
+<dashboard-app class="app-container dashboard-container" >
+  <kbn-top-nav name="dashboard" config="topNavMenu">
+    <div class="kibana-nav-info">
+      <span ng-show="dash.id" class="kibana-nav-info-title">
+        <span ng-bind="::dash.title"></span>
+      </span>
+    </div>
+  </kbn-top-nav>
+
+
+  <navbar ng-show="chrome.getVisible()" name="dashboard-search">
+    <form name="queryInput"
+      class="fill inline-form"
+      ng-submit="filterResults()"
+      role="form">
+
+      <div class="typeahead" kbn-typeahead="dashboard">
+        <div class="input-group"
+          ng-class="queryInput.$invalid ? 'has-error' : ''">
+
+          <input
+            type="text"
+            style="border:1px solid #bdbdbd;border-top-left-radius: 3px;border-bottom-left-radius: 3px;margin-right: 0"
+            placeholder="{{'Filter...'|translate}}"
+            aria-label="Filter input"
+            class="form-control"
+            ng-model="state.query"
+            input-focus
+            kbn-typeahead-input
+            parse-query>
+          <button type="submit" style=" padding: 5px 15px; margin-left: 0;border-top-left-radius: 0;border-bottom-left-radius: 0;" class="btn btn-default" ng-disabled="queryInput.$invalid" aria-label="Filter dashboards">
+            <span aria-hidden="true" class="fa fa-search"></span>
+          </button>
+        </div>
+
+        <kbn-typeahead-items></kbn-typeahead-items>
+      </div>
+
+    </form>
+    <div class="button-group"></div>
+  </navbar>
+
+  <filter-bar state="state"></filter-bar>
+
+<!--  -->
+  <div class="div-relative" >
+   <div class="dash-bott" >
+   </div>
+   <div class="dash-tap" >
+     <ul  sv-root sv-part="state.panels"  sv-on-sort="foo($item, $partFrom, $partTo, $indexFrom, $indexTo)">
+     <li ng-repeat="item in state.panels track by $index" class="dash-navs" ng-class="{true: 'lcx-red', false: ''}[$index === showTabIndex]" id="li-{{$index}}" sv-element>
+     <a ng-if="inputArr[$index] === 0" style="display:inline-block;height:34px;width:100%"  sv-handle>
+     <div  draggable="false" ng-mousedown = "showTab($event,$index)" ng-dblclick="tabChange($event,$index)" style="display:inline-block; height:34px;padding-left: 5px;">
+       <div style="display:inline-block;width: 100px;" class="textOverflow" title="{{item.tab}}">{{item.tab}}</div>
+     </div>
+     <ar-modal-md
+       modal-obj="modalObj"
+       ok="dashClearOne($index,$event)"
+       confirm-msg="{{'确认删除所选的标签页？此操作不可撤销！'|translate}}"
+       ar-title = "{{'提示'|translate}}"
+     >
+     <button class="Dele " title="{{'关闭标签页'|translate}}"></button>
+     </ar-modal-md>
+
+     </a>
+     <div ng-if="inputArr[$index] === 1" style="display:inline-block;height:32px;  line-height: 32px ;">
+      <input type="text" id="input-{{$index}}" class ="dash-input" ng-model="item.tab" ng-keyup="enterEvent($event,$index)" input-focus ng-blur="listener()">
+     </div>
+
+     </li>
+     </ul>
+
+     <span ng-click="addTab($event)" class="Add-me"  id="Add-tab" ng-class="{true: 'lcx-bottom', false: ''}[inputArrOne === true]" ng-if="state.panels.length < 8" title="{{'打开新的标签页'|translate}}"> <a class="add-icon"></a></span>
+   </div>
+  </div>
+
+
+
+
+
+
+  <dashboard-grid></dashboard-grid>
+  <div  id="panel-lcx">
+  </div>
+  <div ng-show="state.panels[showTabIndex].panel.length === 0 || state.panels[showTabIndex].panel.length === undefined" class="text-center start-screen">
+    <p><span translate>Click the</span> <a class="btn btn-xs navbtn-inverse" ng-click="kbnTopNav.open('add-dash'); toggleAddVisualization = !toggleAddVisualization" aria-label="Add visualization" ><span> <i class="fa fa-plus" aria-hidden="true"></i></span> <span translate>Add-dash</span></a> <span translate>button in the menu bar above to add a visualization to the dashboard.</span> <br/><span translate>If you haven't setup a visualization yet visit the</span> <a href="#/visualize" title="Visualize" ><span translate>lcx-left</span><span translate>Visualize</span><span translate>lcx-right</span></a> <span translate>tab to create your first visualization.</span></p>
+  </div>
+
+</dashboard-app>

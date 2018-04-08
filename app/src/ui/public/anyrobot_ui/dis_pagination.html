@@ -1,0 +1,34 @@
+<div class="page-list">
+  <ul class="pagination" ng-show="conf.totalItems > 0"
+      style="margin: 0;
+             position: absolute;
+             right: 115px;
+             font-size: 12px;
+             height: 20px;
+             margin-top: -7px;">
+    <li ng-class="{disabled: conf.currentPage == 1}" ng-click="prevPage()"><span>&laquo;</span></li>
+    <li ng-repeat="item in pageList track by $index"
+        ng-class="{active: item == conf.currentPage, separate: item == '...'}"
+        ng-click="changeCurrentPage(item)">
+      <span>{{ item }}</span>
+    </li>
+    <li ng-class="{disabled: conf.currentPage == conf.numberOfPages}" ng-click="nextPage()"><span>&raquo;</span></li>
+    <li ng-if="conf.currentPage === conf.numberOfPages" style="display: inline-block;padding-left: 5px;padding-top: 5px; width: 23px;color: #F39C12" class="col-md-1 ">
+      <kbn-fa-info placement="bottom" fainfo="fa-exclamation-triangle" info="{{'当前只显示符合搜索条件的最近'|translate}}{{ conf.totalItems }}{{'条日志，如果想查看更多日志，请到管理->高级设置->discover:sampleSize处设置。'|translate}}">
+      </kbn-fa-info>
+    </li>
+  </ul>
+  <div class="btn-group log-navs" dropdown ng-show="conf.totalItems > 0">
+    <div id="log-display" dropdown-toggle>
+      <span class="log-title">{{'每页conf'|translate}}{{conf.itemsPerPage}}{{'条conf'|translate}}</span>
+      <span class="caret"></span>
+    </div>
+    <ul class="dropdown-menu ar-dropdown-menu" role="menu" aria-labelledby="log-display" style="top: 22px">
+      <li role="menuitem" ng-repeat="option in conf.perPageOptions">
+        <a ng-click="changeItemsPerPage(option)" style="margin-left: 0">{{'每页conf'|translate}}{{option}}{{'条conf'|translate}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="no-items" ng-show="conf.totalItems <= 0" translate>暂无数据</div>
+</div>

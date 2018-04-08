@@ -1,0 +1,18 @@
+<div class="app-container new-Alarm" ng-controller="saveTcpudp">
+  <div ng-controller = "newTcpUdp">
+<!-- 	<bread-crumbs class="bread-crumbs--navbar" omit-current-page="true"></bread-crumbs> -->
+	<kbn-top-nav name="data-subnav" data-test-subj="managementNav">
+	  <div class="localTabs">
+	      <span ng-show="newOrUp==true" translate>新建TCP/UDP输入</span>
+	      <span ng-show="newOrUp==false" translate>编辑TCP/UDP输入</span>
+	  </div>
+	</kbn-top-nav>
+	<div class="newSetSaveSuccess" >
+	  <p class="sizeBold" translate>TCP/UDP输入保存成功</p>
+	  <p class="sizeBold" translate>接下来你想</p>
+	  <!--<p><a class="text-danger" ng-href="/app/kibana#/data/tcpUdp" >&lt查看TCP/UDP上传列表</a></p>-->
+	  <p><a class="text-danger" ng-click="viewUploadList()" >&lt <span translate>查看TCP/UDP上传列表</span></a></p>
+	  <p><a class="text-danger" ng-href="/app/kibana#/discover">&lt <span translate>搜索数据</span></a></p>
+	</div>
+  </div>
+</div>

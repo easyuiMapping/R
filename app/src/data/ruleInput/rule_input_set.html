@@ -1,0 +1,753 @@
+<div class="app-container data-input-rule-setting" ng-controller="inputRuleSetting">
+<!--   <bread-crumbs class="bread-crumbs--navbar" omit-current-page="true"></bread-crumbs> -->
+  <kbn-top-nav name="data-subnav" data-test-subj="managementNav">
+    <div class="localTabs">
+        <span ng-if="uplodeType === 'tcpudp'" class="localTab" translate >TCP/UDP输入规则设置</span>
+        <span ng-if="uplodeType === 'agent'" class="localTab" translate>代理输入规则设置</span>
+    </div>
+  </kbn-top-nav>
+  <div role="main">
+    <div class=" settings-section-container col-md-{{row}}">
+      <div class="section-setting panel panel-default panel-tcpudp " ng-class="myContainer">
+        <!-- Default panel contents -->
+        <div class="panel-heading log-sample"><span translate>日志样例</span>
+          <div style="float:right" class="errorSub" ng-if="redShow===true" translate>该日志样例来自于已有规则，需重新选择本次输入项的日志样例</div>
+        </div>
+        <div class="panel-body log-sample-content" >
+          <textarea class="form-control dataTextArea whiteSpace"  ng-model="itemLog"
+                    placeholder="{{'请从日志样本中选择或自行粘贴一条日志样例'|translate}}" required></textarea>
+        </div>
+
+      </div>
+      <div class="section-setting panel panel-default  panel-tcpudp " ng-class="myContainer">
+        <!-- Default panel contents -->
+        <div class="panel-heading rule-setting" translate>规则设置</div>
+        <form class="form-horizontal rule-setting-form" role="form" name="newRuleSet">
+          <div class="form-group">
+            <label class="col-md-2 control-label" translate>规则来源</label>
+            <div class="col-md-4">
+            <select class="form-control" ng-model="selectedRule" ng-change="selectedRuleChange(selectedRule)"
+                    ng-options="item.id as item.value group by item.name for item in selectedRules">
+            </select>
+
+            </div>
+          </div>
+          <div >
+            <div ng-if="selectedRuleShow">
+              <div class="form-group">
+                <label for="ruleName" class="col-md-2 control-label" translate>规则名称</label>
+                <div class="col-md-4">
+                  <input type="text" class="form-control"  name="ruleName"  ng-model="dateArgs.ruleName" placeholder="{{'请设置规则名称'|translate}}" required>
+                </div>
+                <div class="col-md-4">
+                  <span class=" form-control errorPre">
+                    <!-- <span class="errorSub" ng-if="newRuleSet.ruleName.$error.required" >规则名称不能为空</span> -->
+                    <span class="errorSub" ng-if="newRuleSetRuleName" translate>规则名称不能为空</span>
+                    <span class="errorSub" ng-if="renameRule">{{info}}</span>
+                    <span class="errorSub" ng-if="illegalRuleName"><span translate>存在非法字符</span>{{illegalRuleNameMe}}</span>
+                  </span>
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ruleDetail" class="col-md-2 control-label" translate>规则详情</label>
+              </div>
+              <!-- 多行日志 配置规则开始-->
+              <div class="form-group">
+                <label for="MultipleLinesLogs" class="col-md-2 control-label" translate>多行日志</label>
+                <div class="col-md-4" ng-if="MultipleLinesLogShow===true">
+                  <label class="radio-inline">
+                    <input type="radio" name="MultipleLinesLogs" id="no" value="no"  ng-model="MultipleLinesLogs" ng-change="MultipleLinesLogsChange(MultipleLinesLogs)" required checked> <span translate>否</span>
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="MultipleLinesLogs" id="yes" value="yes"  ng-model="MultipleLinesLogs" ng-change="MultipleLinesLogsChange(MultipleLinesLogs)" required > <span translate>是</span>
+                  </label>
+                </div>
+
+                <div class="col-md-4" ng-if="MultipleLinesLogShow===false">
+                  <label class="radio-inline">
+                    <input type="radio" name="MultipleLinesLogs" id="no" value="no"  ng-model="MultipleLinesLogs" ng-change="MultipleLinesLogsChange(MultipleLinesLogs)" required checked> <span translate>否</span>
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="MultipleLinesLogs" id="yes" value="yes"  ng-model="MultipleLinesLogs" ng-change="MultipleLinesLogsChange(MultipleLinesLogs)" required > <span translate>是</span>
+                  </label>
+                </div>
+
+              </div>
+              <div class="form-group" ng-if="MultipleLinesLogShow===true">
+                <label class="col-md-1"></label>
+                <div class="col-md-11">
+                  <fieldset class = "MultipleLinesLogsFieldset"  ng-class = "{true: 'successArr', false: ''}[conversionSuccess === 0]">
+                    <legend translate>多行合并</legend>
+                    <div class="form-group">
+                      <label for="pattern" class="col-md-2 control-label" translate>正则匹配</label>
+                      <div class="col-md-4" >
+                        <div contenteditable="true"  contenteditable="plaintext-only" ar-contentedit="true" class="form-control textareaPattern whiteSpace "  ng-model="Multiple.pattern"  required></div>
+                       <!--  <input class="form-control" type="text" name="pattern"   ng-model="Multiple.pattern" required > -->
+                      </div>
+                      <div class="col-md-2 " style="padding-left: 0px">
+                        <kbn-info
+                          placement="right"
+                          info='匹配该正则的每一行日志会根据"归属行"参数来确定其归属前一条日志，还是下一条日志'
+                        ">
+                        </kbn-info>
+                      </div>
+                      <div class="col-md-4">
+                        <label >
+                          <span style="padding-right: 1px;">
+                            <button type="button" class="btn btn-default" tooltip="{{'验证本层及以上'|translate}}" ng-click="conversion()"><span translate>验证</span></button>
+                          </span>
+                        </label>
+                        <label>
+                          <span style="padding-right: 1px;">
+                            <button type="button" class="btn btn-default" tooltip="{{'删除本层'|translate}}" ng-click="removeMultiple()"><span translate>删除</span></button>
+                          </span>
+                        </label>
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="negate" class="col-md-2 control-label" translate>正则反转</label>
+                      <div class="col-md-4">
+                        <label class="radio-inline">
+                          <input type="radio" name="negate" id="negateNo" value="no"  ng-model="negate" ng-change="negateChange(negate)" required> <span translate>否</span>
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="negate" id="negateYes" value="yes"  ng-model="negate" ng-change="negateChange(negate)" required > <span translate>是</span>
+                        </label>
+                      </div>
+                      <div class="col-md-2 " style="padding-left: 0px ">
+                        <kbn-info
+                          placement="right"
+                          info="反转正则表达式"
+                        ">
+                        </kbn-info>
+                      </div>
+                      <div class="col-md-3"></div>
+                      <div class="col-md-1" >
+                        <div ng-if="conversionSuccess===1"><i aria-hidden="true" class="fa fa-check-circle fa-2x" style="text-align: right;"></i></div>
+                        <div ng-if="conversionSuccess===0"><i aria-hidden="true" class="fa fa-times-circle-o fa-2x" style="text-align: right;"></i></div>
+                      </div>
+                    </div>
+                    <div class="form-group ">
+                    <kbn-info
+                      placement="right"
+                      info='如果该行日志正则匹配成功，"前一条日志"则该行日志归属上一条日志，"下一条日志"则该行日志归属下一条日志'>
+                    </kbn-info>
+                      <label for="what" class="col-md-2 control-label" translate>归属日志</label>
+                      <div class="col-md-4" >
+                        <select class="form-control" ng-model="what" id="what"
+                                ng-change="whatChange(what)"
+                                ng-options="item.id as item.value for item in whats">
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-2"></div>
+                      <div class="col-md-10 ar-error-color" >
+                        <span ng-if="conversionSuccess === 0" >{{conversionErrmsg|translate}}</span>
+                        <!-- <span ng-if="MultiplePatternErr">正则匹配表达式不能为空</span> -->
+                      </div>
+
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+
+              <!-- 多行日志 配置规则结束-->
+              <div class="form-group ruleDetails" ng-if="parseCounts.length > 0">
+                  <label for="ruleDetail" class="col-md-1 control-label"></label>
+                  <div class="col-md-11  parseTable">
+                    <table class="table">
+                      <tr ng-repeat="parseCount in parseCounts track by $index" ng-init="outerIndex = $index">
+                        <td ng-if="parseCount.key">
+                          <div class="ar-padding">
+                            <fieldset id="ruleDetail" ng-class = "{true: 'successArr', false: ''}[successArr[$index]===0||textArr[$index]==='']">
+                              <legend ng-if="errmsgArr[$index]!=='请选择字段'&&errmsgArr[$index]!=='解析对象不存在'&&parseCount.key&&parseCount.key=='原始日志'||parseCount.key=='message'" translate>原始日志</legend>
+                              <legend ng-if="errmsgArr[$index]!=='请选择字段'&&errmsgArr[$index]!=='解析对象不存在'&&parseCount.key&&parseCount.key!=='原始日志'&&parseCount.key!=='message'">{{parseCount.key}}</legend>
+                              <legend ng-if="errmsgArr[$index]==='解析对象不存在' || errmsgArr[$index]==='请选择字段'||!parseCount.key" >
+                                <select class="form-control" ng-model="parseContentsErr[$index]"
+                                        ng-change="parseContentErrChange(parseContentsErr[$index],$index)"
+                                        ng-options="item.id as item.key for item in parseContents">
+                                  <option value="" disabled translate>-选择解析内容-</option>
+                                </select>
+                              </legend>
+                              <div class="form-group">
+                                <label for="parseText" class="col-md-2 control-label" translate>解析文本</label>
+                                <div class="col-md-6" ng-if="parseCount.key=='原始日志'||parseCount.key === 'message'">
+                                  <div  ar-contentedit="true" class="form-control textareaResize whiteSpace " ng-if="conversionSuc !== 1" ng-model="itemLog" disabled required></div>
+                                  <div  ar-contentedit="true" class="form-control textareaResize whiteSpace " ng-if="conversionSuc === 1" ng-model="conversionResultOne" disabled required></div>
+                                </div>
+                                <div class="col-md-6" ng-if="parseCount.key!=='原始日志'&&parseCount.key !== 'message'">
+                                  <textarea class="form-control textareaResize" ng-model="parseCount.value" disabled required ng-if="parseCount.value===0"></textarea>
+                                  <div  ng-if="parseCount.value!==0" ar-contentedit="true" class="form-control textareaResize whiteSpace " ng-model="parseCount.value" disabled required></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                  <label>
+                                    <span style="padding-right: 1px;" class="rule-setting-span">
+                                      <button type="button" class="btn btn-default" id="apply"
+                                              ng-click="verifyRules($index)" tooltip="{{'验证本层及以上'|translate}}" ng-disabled="parseContentsErr[$index]===undefined&&errmsgArr[$index]==='解析对象不存在' || parseContentsErr[$index]===undefined&&errmsgArr[$index]==='请选择字段'||!parseCount.key||conversionSuccess === 0"><span translate>验证</span></button>
+                                    </span>
+                                  </label>
+                                  <label>
+                                    <span style="padding-right: 1px;" class="rule-setting-spanx">
+                                      <button type="button" class="btn btn-default" id="apply"
+                                              ng-click="removeRules($index)" tooltip="{{'删除本层'|translate}}" ><span translate>删除</span></button>
+                                    </span>
+                                  </label>
+
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label class="col-md-2 control-label" translate>前置条件</label>
+                                <div class="col-md-4">
+                                  <label class="radio-inline">
+                                    <input type="radio"   value="no"  ng-model="prefix[$index]" ng-change="prefixConditions(prefix[$index],$index)" required> <span translate>否</span>
+                                  </label>
+                                  <label class="radio-inline">
+                                    <input type="radio"  value="yes"  ng-model="prefix[$index]" ng-change="prefixConditions(prefix[$index],$index)" required > <span translate>是</span>
+                                  </label>
+                                </div>
+
+                              </div>
+
+                              <div ng-switch="prefix[$index]">
+                                <div ng-switch-when="yes">
+                                  <div class="form-group ">
+                                    <kbn-info
+                                      placement="right"
+                                      info="当前置条件为真时，按本层的解析规则解析。前置条件表达式语法，详见使用手册。"
+                                    ">
+                                    </kbn-info>
+                                    <label for="grok-Expression" class="col-md-2 control-label" translate></label>
+                                    <div class="col-md-6">
+
+                                      <div contenteditable="true"  contenteditable="plaintext-only" ar-contentedit="true" class="form-control arTextarea whiteSpace textareaResize"
+                                                style="border-width: 1px; border-style: solid; "
+                                                placeholder='{{"请填写本层前置条件表达式，例如:\"a\"in \"abc\" or [a] == 1表示字符串a在abc中或字段a等于数字1"|translate}}'
+                                                ng-change="dateArgsChange(condition,$index)" id="conditionExpression"
+                                                ng-model="dateArgs[$index].condition"  required></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label class="col-md-2 control-label" translate>解析方法</label>
+                                <div class="col-md-4">
+                                  <select class="form-control" ng-model="parseMethod[$index]" name="analysisFun"
+                                          ng-change="selectedparseMethod(parseMethod[$index],$index)"
+                                          ng-options="item.id as item.value for item in parseMethods[$index]"  required>
+                                    <option value="" translate>——请选择解析方法——</option>
+                                  </select>
+
+                                </div>
+                                <div class="col-md-5"></div>
+                                <div class="col-md-1" >
+                                  <div ng-if="successArr[$index]===1"><i aria-hidden="true" class="fa fa-check-circle fa-2x" style="text-align: right;"></i></div>
+                                  <div ng-if="successArr[$index]===0"><i aria-hidden="true" class="fa fa-times-circle-o fa-2x" style="text-align: right;"></i></div>
+                                </div>
+                              </div>
+                              <div ng-switch="parseMethod[$index]">
+                                <div ng-switch-when="2">
+                                  <div class="form-group ">
+                                    <kbn-info
+                                      placement="right"
+                                      info="字段命名不能以数字、下划线或@开头，也不能与系统字段名重复。"
+                                    ">
+                                    </kbn-info>
+                                    <label for="grok-Expression" class="col-md-2 control-label" translate>正则表达式</label>
+                                    <div class="col-md-6">
+
+                                      <div contenteditable="true"  contenteditable="plaintext-only" ar-contentedit="true" class="form-control arTextarea whiteSpace textareaResize"
+                                                style="border-width: 1px; border-style: solid; " placeholder="{{'请填写正则表达式'|translate}}"
+                                                ng-change="dateArgsChange(pattern,$index)" id="regExpression"
+                                                ng-model="dateArgs[$index].pattern"  required></div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div ng-switch-when="4">
+                                  <div class="form-group">
+                                    <label for="str2num-Expression" class="col-md-2 control-label" translate>数值类型</label>
+                                    <div class="col-md-8" required>
+                                      <label class="radio-inline">
+                                        <input type="radio" value="int" ng-model="dateArgs[$index].pattern" ng-change="dateArgsChange(pattern,$index)"
+                                               ng-required="!dateArgs[$index].pattern" > int
+                                      </label>
+                                      <label class="radio-inline">
+                                        <input type="radio" value="float" ng-model="dateArgs[$index].pattern" ng-change="dateArgsChange(pattern,$index)"
+                                               ng-required="!dateArgs[$index].pattern" > float
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div ng-switch-when="6">
+                                  <div class="form-group ">
+                                    <kbn-info
+                                      placement="right"
+                                      info="您可以填写多个时间格式进行匹配，并以“;”隔开。系统将依次进行匹配且最终采用第一个匹配的时间格式。"
+                                    ">
+                                    </kbn-info>
+                                    <label for="timeExpression" class="col-md-2 control-label" translate>时间格式</label>
+                                    <div class="col-md-6">
+                                      <div contenteditable="true" contenteditable="plaintext-only"  ar-contentedit="true" class="form-control arTextarea whiteSpace textareaResize"
+                                                style="border-width: 1px; border-style: solid; " placeholder="{{'请填写时间格式'|translate}}"
+                                                ng-change="dateArgsChange(pattern,$index)" id="dateExpression"
+                                                ng-model="dateArgs[$index].pattern"  required></div>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group " >
+                                    <kbn-info
+                                      placement="right"
+                                      info="如果解析文本中没有时区信息或为CST格式，则系统会将默认时区作为解析文本的时区。"
+                                    ">
+                                    </kbn-info>
+                                    <label for="timeExpression" class="col-md-2 control-label" translate>默认时区</label>
+                                    <div class="col-md-4">
+                                      <select class="form-control" ng-model="dateArgs[$index].timeZone" name="defaultZone"
+                                              ng-change="defaultZoneChange(timeZone,$index)"
+                                              ng-options="item.id as item.value for item in defaultZone|orderBy:'tem'"  required>
+
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group ">
+                                    <kbn-info
+                                      placement="right"
+                                      info="当层层解析包含多个时间戳解析时，可以选择作为<@timestamp>的时间字段，在搜索界面显示。"
+                                    ">
+                                    </kbn-info>
+                                    <label class="col-md-2 control-label" translate>@timestamp</label>
+                                    <div class="col-md-4">
+                                      <label class="radio-inline">
+                                        <input type="radio"   value="no"  ng-model="dateArgs[$index].timestamp" ng-change="timestampChange(dateArgs[$index].timestamp,$index)" required> <span translate>否</span>
+                                      </label>
+                                      <label class="radio-inline">
+                                        <input type="radio"  value="yes"  ng-model="dateArgs[$index].timestamp" ng-change="timestampChange(dateArgs[$index].timestamp,$index)" required > <span translate>是</span>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="col-md-2"></div>
+                                    <div  class="col-md-10 ar-suc-color" ng-if="successArr[$index]===1">
+                                      <span ng-if="parseCount.value.indexOf('CST') === -1">
+                                        <span translate>解析文本不含时区信息，系统已采用默认时区。</span>
+                                      </span>
+                                      <span ng-if="parseCount.value.indexOf('CST') > -1">
+                                        <span translate>解析文本时区信息为CST格式，系统已采用默认时区。</span>
+                                      </span>
+
+                                    </div>
+
+                                  </div>
+                                </div>
+                                <div ng-switch-when="8">
+                                  <div class="form-group">
+                                    <label for="word-Expression" class="col-md-2 control-label" translate>字段分隔符</label>
+                                    <div class="col-md-2">
+                                      <input type="text" class="form-control" ng-change="dateArgsChange(pattern,$index)"
+                                             ng-model="dateArgs[$index].pattern[0]"  ng-value=" ">
+                                    </div>
+                                    <label for="k-v-Expression" class="col-md-2 control-label" translate>K-V分隔符</label>
+                                    <div class="col-md-2">
+                                      <input type="text" class="form-control" ng-change="dateArgsChange(pattern,$index)"
+                                             ng-model="dateArgs[$index].pattern[1]"  ng-value="kv">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div ng-switch-when="9">
+                                  <div class="form-group">
+                                    <label for="str2num-Expression" class="col-md-2 control-label" translate>字段名语言</label>
+                                    <div class="col-md-8" required>
+                                      <label class="radio-inline">
+                                        <input type="radio" value="cn" ng-model="dateArgs[$index].pattern" ng-change="dateArgsChange(pattern,$index)"
+                                               ng-required="!dateArgs[$index].pattern" ><span translate>中文</span>
+                                      </label>
+                                      <label class="radio-inline">
+                                        <input type="radio" value="en" ng-model="dateArgs[$index].pattern" ng-change="dateArgsChange(pattern,$index)"
+                                               ng-required="!dateArgs[$index].pattern" ><span translate>英文</span>
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                              </div>
+
+                              <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10 ar-error-color" ng-if="successArr[$index]===0">
+                                  <span ng-if="errmsgArr[$index] === '解析对象不存在'" translate>
+                                    验证失败，该层解析对象不存在，您可以在本层左上角重新选择解析内容或删除本层解析
+                                  </span>
+                                  <span ng-if="errmsgArr[$index] !== '解析对象不存在'">
+                                    <span translate>验证失败，失败原因：</span>{{errmsgArr[$index]|translate}}
+                                  </span>
+
+                                </div>
+
+                              </div>
+
+                            </fieldset>
+                          </div>
+                        </td>
+                        <!-- Mutate的解析方法 -->
+                        <td ng-if="parseCount.mutate">
+                          <div class="ar-padding">
+                            <fieldset ng-class = "{true: 'successArr', false: ''}[successArr[$index]===0||textArr[$index]==='']">
+                              <div class="form-group">
+                                <label class="col-md-2 control-label" translate>前置条件</label>
+                                <div class="col-md-6">
+                                  <label class="radio-inline">
+                                    <input type="radio"   value="no"  ng-model="prefix[$index]" ng-change="prefixConditions(prefix[$index],$index)" required> <span translate>否</span>
+                                  </label>
+                                  <label class="radio-inline">
+                                    <input type="radio"  value="yes"  ng-model="prefix[$index]" ng-change="prefixConditions(prefix[$index],$index)" required > <span translate>是</span>
+                                  </label>
+                                </div>
+                                <div class="col-md-4">
+                                  <label>
+                                    <span style="padding-right: 1px;" class="rule-setting-span">
+                                      <button type="button" class="btn btn-default" id="apply"
+                                              ng-click="verifyRules($index)" tooltip="{{'验证本层及以上'|translate}}" ><span translate>验证</span></button>
+                                    </span>
+                                  </label>
+                                  <label>
+                                    <span style="padding-right: 1px;" class="rule-setting-spanx">
+                                      <button type="button" class="btn btn-default" id="apply"
+                                              ng-click="removeRules($index)" tooltip="{{'删除本层'|translate}}" ><span translate>删除</span></button>
+                                    </span>
+                                  </label>
+
+                                </div>
+
+                              </div>
+
+                              <div ng-switch="prefix[$index]">
+                                <div ng-switch-when="yes">
+                                  <div class="form-group ">
+                                    <kbn-info
+                                      placement="right"
+                                      info="当前置条件为真时，按本层的解析规则解析。前置条件表达式语法，详见使用手册。"
+                                    ">
+                                    </kbn-info>
+                                    <label for="grok-Expression" class="col-md-2 control-label" translate></label>
+                                    <div class="col-md-6">
+
+                                      <div contenteditable="true"  contenteditable="plaintext-only" ar-contentedit="true" class="form-control arTextarea whiteSpace textareaResize"
+                                                style="border-width: 1px; border-style: solid; "
+                                                placeholder='{{"请填写本层前置条件表达式，例如:\"a\"in \"abc\" or [a] == 1表示字符串a在abc中或字段a等于数字1"|translate}}'
+                                                ng-change="dateArgsChange(condition,$index)" id="conditionExpression"
+                                                ng-model="dateArgs[$index].condition"  required></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-md-2 control-label" translate>修改方法</label>
+                                <div class="col-md-4">
+                                  <select class="form-control" ng-model="analyticalMethodsErr[$index]" name="analysisFun"
+                                          ng-change="selectedAnalyticalMethods(analyticalMethodsErr[$index],$index)"
+                                          ng-options="item.id as item.value for item in analyticalMethods"  required>
+                                    <option value="" translate>——请选择修改方法——</option>
+                                  </select>
+
+                                </div>
+                                <div class="col-md-5"></div>
+                                <div class="col-md-1" >
+                                  <div ng-if="successArr[$index]===1"><i aria-hidden="true" class="fa fa-check-circle fa-2x" style="text-align: right;"></i></div>
+                                  <div ng-if="successArr[$index]===0"><i aria-hidden="true" class="fa fa-times-circle-o fa-2x" style="text-align: right;"></i></div>
+                                </div>
+                              </div>
+
+
+                              <div ng-switch="analyticalMethodsErr[$index]">
+                                <div ng-switch-when="1">
+                                  <div class="form-group">
+
+                                    <label for="grok-Expression" class="col-md-2 control-label" translate>替换详情</label>
+                                    <div class="col-md-3" style="min-width: 200px;">
+                                    <select class="form-control" ng-model="dateArgs[$index].analyMethod"
+                                            ng-change="analyMethodChange(analyMethod,outerIndex)"
+                                            ng-options="item.id as item.key for item in resultset[outerIndex - 1].analyMethods">
+                                      <option value="" disabled translate>-请选择字段名-</option>
+                                    </select>
+                                    </div>
+                                    <label for="k-v-Expression" class="col-md-1 control-label" style=" padding-left: 0px; padding-right: 0px; width: 10px;" translate>=</label>
+                                    <div class="col-md-3" style="min-width: 200px;">
+                                     <input type="text" class="form-control" ng-change="dateArgsChange(fieldValue,$index)"  ng-model="dateArgs[$index].fieldValue" placeholder="{{'请填写字段值'|translate}}" required>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div ng-switch-when="2">
+                                  <div class="form-group" ng-repeat="itemRemove in dateArgs[outerIndex].removes track by $index">
+
+                                    <label for="grok-Expression" class="col-md-2 control-label" ><span ng-if="$index == 0" translate>删除详情</span></label>
+     <!--                                <div class="col-md-2">
+                                      <input type="text" class="form-control"  ng-model="itemRemove.analyMethod"/>
+                                    </div> -->
+                                   <div class="col-md-4" style="min-width: 280px;">
+                                     <select class="form-control textOverflow" ng-model="itemRemove.analyMethod"
+                                             ng-change="analyMethodChange(analyMethod,outerIndex)"
+                                             ng-options="item.id as item.key for item in resultset[outerIndex - 1].analyMethods">
+                                       <option value="" disabled translate>-请选择字段名-</option>
+                                     </select>
+
+                                   </div>
+                                   <div class="col-md-1" style="margin-top: 5px;padding: 0px;" >
+                                    <span class="btn btn-danger spanAdd spanDele" ng-click = "deleteRemoveField(outerIndex,$index)" ng-hide="dateArgs[outerIndex].removes.length == 1">x</span>
+                                    <span class="btn btn-info spanAdd" ng-click = "addRemoveField(outerIndex,$index)" ng-if="$index == dateArgs[outerIndex].removes.length - 1">+</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div ng-switch-when="3">
+                                    <div class="form-group" ng-repeat="itemAdd in dateArgs[outerIndex].adds track by $index">
+
+                                      <label for="grok-Expression" class="col-md-2 control-label" ><span translate ng-if="$index == 0">添加详情</span></label>
+                                      <div class="col-md-2" style="padding-right: 0px;max-width: 140px;min-width: 120px;">
+                                      <select class="form-control textOverflow" ng-model="itemAdd.fieldType"
+                                              ng-change="fieldTypesChange(fieldType,outerIndex)"
+                                              ng-options="item.id as item.key for item in fieldTypes"
+                                              style="padding-right: 0px;">
+                                        <option value="" disabled translate>-字段类型-</option>
+                                      </select>
+                                      </div>
+                                      <div class="col-md-3" style="padding-left: 0px;min-width: 184px;">
+                                       <input type="text" class="form-control"  ng-change="dateArgsChange(fieldName,outerIndex)"  ng-model="itemAdd.fieldName" placeholder="{{'请填写字段名'|translate}}" required>
+                                      </div>
+                                      <label for="k-v-Expression" class="col-md-1 control-label" style=" padding-left: 0px; padding-right: 0px; width: 10px;" translate>=</label>
+                                      <div class="col-md-3" style=" min-width: 182px;padding-right: 0px;">
+                                       <input type="text" class="form-control" ng-change="dateArgsChange(fieldValue,outerIndex)"   ng-model="itemAdd.fieldValue" placeholder="{{'请填写字段值'|translate}}" required>
+                                      </div>
+                                      <div class="col-md-1" style="margin-top: 5px;padding: 0px; margin-left: 15px; max-width: 60px;" >
+                                       <span class="btn btn-danger spanAdd spanDele" ng-click = "deleteAddField(outerIndex,$index)" ng-hide="dateArgs[outerIndex].adds.length== 1">x</span>
+                                       <span class="btn btn-info spanAdd" ng-click = "addAddField(outerIndex,$index)" ng-if="$index == dateArgs[outerIndex].adds.length - 1">+</span>
+                                       </div>
+                                    </div>
+                                  </div>
+                                  <div ng-switch-when="4">
+                                    <div class="form-group" ng-repeat="itemRename in dateArgs[outerIndex].renames track by $index">
+                                      <label for="grok-Expression" class="col-md-2 control-label" ><span translate ng-if="$index == 0">重命名详情</span></label>
+                                      <div class="col-md-3" style="min-width: 200px;">
+                                      <select class="form-control textOverflow" ng-model="itemRename.analyMethod"
+                                              ng-change="analyMethodChange(analyMethod,outerIndex)"
+                                              ng-options="item.id as item.key for item in resultset[outerIndex - 1].analyMethods">
+                                        <option value="" disabled translate>-请选择字段名-</option>
+                                      </select>
+                                      </div>
+                                      <label for="k-v-Expression" class="col-md-1 control-label" style=" padding-left: 0px; padding-right: 0px; width: 10px;" translate>=</label>
+                                      <div class="col-md-3" style="min-width: 200px;">
+                                       <input type="text" class="form-control"  ng-change="dateArgsChange(fieldValue,outerIndex)"  ng-model="itemRename.fieldValue" placeholder="{{'请填写字段名'|translate}}" required>
+                                      </div>
+                                      <div class="col-md-1" style="margin-top: 5px;padding: 0px;" >
+                                       <span class="btn btn-danger spanAdd spanDele" ng-click = "deleteRenameField(outerIndex,$index)" ng-hide="dateArgs[outerIndex].renames.length == 1">x</span>
+                                       <span class="btn btn-info spanAdd" ng-click = "addRenameField(outerIndex,$index)" ng-if="$index == dateArgs[outerIndex].renames.length - 1">+</span>
+                                       </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <div class="col-md-2"></div>
+                                  <div class="col-md-10 ar-error-color" ng-if="successArr[$index]===0">
+                                      <span translate>验证失败，失败原因：</span><span>{{errmsgArr[$index]|translate}}</span>
+                                  </div>
+
+                                </div>
+                              </div>
+
+                            </fieldset>
+                          </div>
+
+                        </td>
+                      </tr>
+
+                    </table>
+                  </div>
+              </div>
+              <div class="form-group" ng-if="analysisContentsHead==true">
+                  <label class="col-md-2 control-label" translate>解析内容</label>
+                  <div class="col-md-4">
+                    <select class="form-control" ng-model="parseContent" id="arSelect"
+                            ng-change="parseContentChange(parseContent)"
+                            ng-options="item.id as item.key for item in parseContents">
+                      <option value="" disabled translate>-选择解析内容-</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="form-group" ng-if="analyticalMethodsHead==true">
+                  <label class="col-md-2 control-label" translate>解析方法</label>
+                  <div class="col-md-4">
+                    <select class="form-control" ng-model="analyticalMethod"
+                            ng-change="analyticalMethodChange(analyticalMethod)"
+                            ng-options="item.id as item.value for item in analyticalMethods">
+                      <option value="" disabled translate>-选择解析方法-</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="form-group" ng-show="addBotton==true">
+                  <div class="col-md-1">
+                  </div>
+                  <div class="col-md-4">
+                    <button type="button" class="btn btn-default" ng-click="continueAdd()" ng-disabled="!domeBut"><span translate>继续解析</span></button>
+                    <i ng-if="domeBut==false"
+                       tooltip-placement="top"
+                       tooltip="{{'请确保最后一层验证成功！'|translate}}"
+                       class="fa fa-warning text-color-danger ng-scope doc-viewer-no-mapping"></i>
+                    <button  type="button" class="btn btn-default" ng-click="modifyField()" ng-disabled="!domeBut"><span translate>修改字段</span></button>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+        </form>
+      </div>
+      <div class="section-setting form-group btn-setting container" ng-class="myBtn" style="margin-left: 15px;">
+        <div class="col-md-3">
+          <button type="submit" ng-class="{true: 'btn btn-warning ng-scope', false: 'btn btn-default'}[domeBut]"
+                  ng-click="dome()" ng-disabled="!domeBut"><span translate>完成</span>
+          </button>
+          <i ng-if="domeBut==false"
+             tooltip-placement="top"
+             tooltip="{{'请确保最后一层验证成功！'|translate}}"
+             class="fa fa-warning text-color-danger ng-scope doc-viewer-no-mapping"></i>
+          <button type="button" class="btn btn-warning" ng-click="BackTo()"><span translate>返回</span></button>
+        </div>
+      </div>
+      <div class="section-setting panel panel-default panel-tcpudp" ng-class="myContainer">
+        <!-- Default panel contents -->
+        <div class="panel-heading log-sample-all" style=" height: 41px;">
+          <div class="inlbock col-md-10" style="padding-left: 0">
+            <span translate>日志样本</span>
+            <div ng-show="parseResults" class="allLogSample">
+              <div class="radio" ng-click="allLog()">
+                <label>
+                  <input type="radio" name="optionsRadios" id="allLogSample" value="option1" checked>
+                  <span translate>全部日志样本</span>
+                </label>
+              </div>
+              <div class="radio" ng-click="matchLog()">
+                <label>
+                  <input type="radio" name="optionsRadios" id="matchLogSample" value="option2">
+                  <span translate>匹配日志样本</span>
+                </label>
+              </div>
+              <div class="radio" ng-click="noMatchLog()">
+                <label>
+                  <input type="radio" name="optionsRadios" id="noMatchLogSample" value="option3">
+                  <span translate>不匹配日志样本</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="inlbock col-md-2 parse-before" ng-class="{true:'parse-after',false:''}[parseResults]">
+            <button type="button" class="btn btn-success" ng-click="checkAll()" ng-disabled="!checkAllBut"><span translate>校验</span></button>
+            <span ng-show="chrome.httpActive.length&&analysisLoading" class="spinner"></span>
+          </div>
+        </div>
+        <div class="table-responsive logSampleAllTab">
+          <table class="table" style="table-layout:fixed">
+            <tr ng-repeat="hit in hits" ng-if="show && hit._source.message">
+              <td class="col-md-1" ng-if="successesMap[$index].success===1">
+                <i aria-hidden="true" class="fa fa-check-circle" style="font-size:1.5em;"></i></td>
+              <td class="col-md-1" ng-if="successesMap[$index].success===0">
+                <i aria-hidden="true" class="fa fa-times-circle-o" style="font-size:1.5em;"></i></td>
+              <td class="col-md-9 col-md-offset-1 textOverflow" title="{{hit._source.message}}">{{hit._source.message}}</td>
+              <td class="col-md-2">
+                <button
+                  ng-click="curStateChange(hit._source.message)"
+                  class="btn btn-warning ng-scope"
+                  aria-label="Edit"
+                  data-test-subj="editButton">
+                  <span class="ng-scope" translate>选为日志样例</span>
+                </button>
+              </td>
+            </tr>
+            <tr ng-repeat="hit in matchHits" ng-if="showme===1&& hit._source.message">
+              <td class="col-md-1"><i aria-hidden="true" class="fa fa-check-circle" style="font-size:1.5em;"></i></td>
+              <td class="col-md-9 col-md-offset-1 textOverflow" title="{{hit._source.message}}">{{hit._source.message}}
+              </td>
+              <td class="col-md-2">
+                <button
+                  ng-click="curStateChange(hit._source.message)"
+                  class="btn btn-warning ng-scope"
+                  aria-label="Edit"
+                  data-test-subj="editButton">
+                  <span class="ng-scope" translate>选为日志样例</span>
+                </button>
+              </td>
+            </tr>
+            <tr ng-repeat="hit in noMatchHits" ng-if="showme===0&& hit._source.message">
+              <td class="col-md-1"><i aria-hidden="true" class="fa fa-times-circle-o" style="font-size:1.5em;"></i></td>
+              <td class="col-md-9 col-md-offset-1 textOverflow" title="{{hit._source.message}}">{{hit._source.message}}</td>
+              <td class="col-md-2">
+                <button
+                  ng-click="curStateChange(hit._source.message)"
+                  class="btn btn-warning ng-scope"
+                  aria-label="Edit"
+                  data-test-subj="editButton">
+                  <span class="ng-scope" translate="" translate>选为日志样例</span>
+                </button>
+              </td>
+            </tr>
+          </table>
+          <tm-pagination conf="pageData.settingConf"></tm-pagination>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 dataside data-pr" ng-if="oneParseResults||conversionRes">
+    <!-- 多行日志 转换结果开始-->
+
+      <div class="panel panel-default table-responsive" ng-if="conversionRes">
+        <!-- Default panel contents -->
+        <div class="panel-heading sizeBold col-md-12" translate>解析结果</div>
+
+        <table class="table table-bordered col-md-12" style=" table-layout:fixed">
+          <thead>
+          <tr class="active" ng-if="conversionResult.length > 0">
+            <td class="col-md-4" translate>序号</td>
+            <td class="col-md-8" translate>多行合并结果</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr  ng-repeat="conver in conversionResult track by $index ">
+            <td class="col-md-4"><div  class=" tabelResize whiteSpace ta"  >{{$index + 1}}</div></td>
+            <td class="col-md-8"><div  class=" tabelResize whiteSpace ta"  >{{conver}}</div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 多行日志 转换结果结束-->
+
+      <div class="panel panel-default table-responsive" ng-if="oneParseResults">
+        <!-- Default panel contents -->
+        <div class="panel-heading sizeBold col-md-12" translate>解析结果</div>
+        <table class="table table-bordered col-md-12" style=" table-layout:fixed">
+          <thead>
+          <tr class="active" ng-if="results.length > 0">
+            <td class="col-md-4" translate>字段名</td>
+            <td class="col-md-4" translate>字段值</td>
+            <td class="col-md-4" translate>字段类型</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="result in results|orderBy:'key' track by $index ">
+            <td class="col-md-4"><div  class=" tabelResize whiteSpace ta"  >{{result.key}}</div></td>
+            <td class="col-md-4"><div  class=" tabelResize whiteSpace "  >{{result.value}}</div></td>
+            <td class="col-md-4"><div  class=" tabelResize whiteSpace "  >{{result.type}}</div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+

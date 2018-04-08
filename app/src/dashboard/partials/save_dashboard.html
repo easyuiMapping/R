@@ -1,0 +1,14 @@
+<form ng-submit="opts.save()" role="form">
+  <div class="form-group">
+    <label for="dashboardTitle" translate>Save As</label>
+    <input id="dashboardTitle" type="text" ng-model="opts.dashboard.title" class="form-control" placeholder={{opts.lcxDashboardTitle|translate}} input-focus="select">
+  </div>
+  <div class="form-group">
+    <label>
+      <input type="checkbox" ng-model="opts.dashboard.timeRestore" ng-checked="opts.dashboard.timeRestore">
+      <span translate>Store time with dashboard</span>
+      <kbn-info info="Change the time filter to the currently selected time each time this dashboard is loaded"></kbn-info>
+    </label>
+  </div>
+  <button type="submit" ng-disabled="!opts.dashboard.title" class="btn btn-primary" aria-label="Save dashboard"><span translate>Save</span></button>
+</form>

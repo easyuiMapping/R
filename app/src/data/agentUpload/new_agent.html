@@ -1,0 +1,134 @@
+<div class="app-container data-upload" ng-controller="newAgent">
+
+<!--   <bread-crumbs class="bread-crumbs--navbar" omit-current-page="true"></bread-crumbs> -->
+  <!--<kbn-top-nav name="data-subnav" data-test-subj="managementNav">-->
+    <!--<div class="localTabs">-->
+        <!--<span ng-show="newOrUp==true" class="localTab" translate>新建TCP/UDP输入</span>-->
+        <!--<span ng-show="newOrUp==false" class="localTab" translate>编辑TCP/UDP输入</span>-->
+    <!--</div>-->
+  <!--</kbn-top-nav>-->
+  <kbn-top-nav name="data-subnav" >
+    <div class="localTabs">
+      <span ng-if="newOrUp==true" class="localTab" translate>新建代理输入</span>
+      <span ng-if="newOrUp==false" class="localTab" translate>编辑代理输入</span>
+      <!--<span class="localTab" translate>编辑TCP/UDP输入</span>-->
+      <!--<span class="localTab" translate>新建告警</span>-->
+    </div>
+  </kbn-top-nav>
+  <div role="main" class=" settings-section-container" ng-show="newSetSave">
+    <div class="panel panel-default panel-tcpudp data-source data-p">
+      <!-- Default panel contents -->
+      <div class="panel-heading " translate>数据源</div>
+      <form class="form-horizontal" role="form"  name="tcpUdp" onsubmit="return false;">
+
+        <div class="form-group">
+          <label class="col-md-{{row}} control-label col-md-offset-1 data-special" translate>接收端口</label>
+          <div class="col-md-4">
+            <input type="text" id="myNumber" name="myNumber" class="form-control" placeholder="{{'请输入端口号'|translate}}" ng-model="data.port"  max="65535"  required>
+          </div>
+          <div class="col-md-1" style="display: inline-block;padding-left: 5px;padding-right: 0px;width: 10px;">
+              <span>&nbsp;</span>
+          </div>
+          <div class="col-md-4" >
+            <span class=" form-control errorPre" >
+              <span class="errorSub" ng-if="!tcpUdp.myNumber.$error.required&&positiveInteger" translate>端口必须为正整数</span>
+              <span class="errorSub" ng-if="!tcpUdp.myNumber.$error.required&&positiveIntegerMax" translate>端口必须小于65535</span>
+              <span class="errorSub" style="display: inline-block;" ng-if="portError" translate>端口号不能为空</span>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-{{row}} control-label col-md-offset-1 data-special">
+            <span translate>日志类型</span>
+          </label>
+          <div class="col-md-4">
+
+            <input type="text" class="form-control" id="logType" name="logType" placeholder="{{'请输入日志类型'|translate}}" ng-model="data.type" required>
+
+          </div>
+          <div style="display: inline-block;padding-left: 5px;padding-right: 0px;width: 23px;" class="col-md-1 ">
+            <kbn-info
+              placement="right"
+              info="日志类型用于标识数据的结构类型">
+            </kbn-info>
+          </div>
+          <div class="col-md-4" >
+            <span class=" errorPre" style="display: inline-block;">
+              <span class="errorSub" style="display: inline-block;" ng-if="typeError" translate>日志类型不能为空</span>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-{{row}} control-label col-md-offset-1 data-special">
+            <span translate>日志标签</span>
+          </label>
+          <div class="col-md-4">
+            <input type="text"  class="form-control" id="  logLabel" placeholder="{{'+（单个日志标签不能超过10个中文字符）'|translate}}" ng-change="labelChange(data.tags)" ng-model="data.tags" ng-keypress="todoSomething($event)">
+          </div>
+          <div style="display: inline-block;padding-left: 5px;padding-right: 0px;width: 23px" class="col-md-1 ">
+            <kbn-info
+              placement="right"
+              info="日志标签是您对数据的自定义描述信息，可用于日志关联分析,您可以一次设置多个日志标签，用“，”分隔即可。">
+            </kbn-info>
+          </div>
+          <div class="col-md-4" >
+            <span class=" errorPre" style="display: inline-block;">
+              <span class="errorSub" style="display: inline-block;" ng-if="labelError" id="labelError" style="color:#e74c3c" translate>日志标签不能超过10个中文字符</span>
+              <span class="errorSub" style="display: inline-block;" ng-if="labelSame" id="labelSame" style="color:#e74c3c" translate>存在相同的日志标签</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" >
+          <label class="col-md-{{row}} control-label col-md-offset-1">
+            <span>&nbsp&nbsp</span>
+          </label>
+          <div class="col-md-8">
+            <div ng-show="addL==true">
+            <span class="arlabel" style="background: #f5f5f5;;border-radius:5px;" ng-repeat="label in arLabel track by $index" ><span>{{label}}</span>&nbsp<span ng-click="removeLabel($index)">&nbsp <i aria-hidden="true" class="fa fa-times"></i></span>
+            </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-1 control-label col-md-offset-1">
+            <button type="button" class="btn btn-success" ng-click="dataAdd()" ><span translate>确定</span></button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="panel panel-default panel-tcpudp data-p log-structured">
+      <!-- Default panel contents -->
+      <div class="panel-heading" translate>日志结构化</div>
+      <form class="form-horizontal" role="form">
+
+        <div class="form-group ">
+          <label class="col-md-{{row}} control-label col-md-offset-1 data-special"><span translate>匹配规则</span>
+          </label>
+          <kbn-info
+            placement="right"
+            info="默认规则：无。您可以配置解析规则，用于日志结构化。也可以跳过此步骤，直接进行搜索。">
+          </kbn-info>
+          <div class="col-md-4">
+            <input type="text" id="matchingRule" class="form-control" value="ruleName" disabled ng-model="ruleName">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-1 control-label col-md-offset-1">
+            <div ng-if="ruleName==='无'||ruleName==='Null'||ruleName==='無'"> <button type="submit" class="btn btn-info" ng-click="newRule()" ng-disabled="!go"><span translate>新建</span></button></div>
+            <div ng-if="ruleName!=='无'&&ruleName!=='Null'&&ruleName!=='無'"> <button type="submit" class="btn btn-info" ng-click="updetaRule()" ng-disabled="!go"><span translate>修改</span></button></div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class=" panel-tcpudp-button data-p">
+      <button type="button" class="btn btn-warning" ng-click="saveRule()" ng-disabled="!go"><span translate>保存</span></button>
+      <button type="button" class="btn btn-warning" ng-click="BackTo()" ><span translate>返回</span></button>
+    </div>
+
+  </div>
+
+</div>
+
+

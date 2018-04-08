@@ -1,0 +1,91 @@
+{
+	"Edit Saved Objects": "編輯已存物件",
+	"Export Everything": "匯出全部物件",
+	"Import": "導入",
+	"From here you can delete saved objects, such as saved searches. You can also edit the raw data of saved objects. Typically objects are only modified via their associated application, which is probably what you should use instead of this screen. Each tab is limited to 100 results. You can use the filter to find objects not in the default list.": "您可以删除已存對象、編輯已存對象中繼資料。若要修改已存對象，請在其對應的應用頁面進行修改。",
+	"Select All": "全選",
+	"Delete": "刪除",
+	"Export": "匯出",
+	"Edit": "編輯",
+	"Hide": "隱藏",
+	"No saved objects to export.": "沒有要匯出的已存物件。",
+	"The file could not be processed.": "無法處理該文件。",
+	"dashboards": "儀錶盤",
+	"searches": "搜索",
+	"visualizations": "視覺化",
+	"Filter": "篩檢程式",
+  "No found":"沒有找到",
+  "Saved Objects":"物件管理",
+
+
+
+
+	"There is a problem with that saved object": "所保存的物件有問題",
+	"The saved search associated with this object no longer exists.": "與此對象關聯的已存搜索已不存在。",
+	"The index pattern associated with this object no longer exists.": "與此物件關聯的索引模式已不存在。",
+	"A field associated with this object no longer exists in the index pattern.": "與此物件關聯的欄位已不存在於索引模式中。",
+	"If you know what this error means, go ahead and fix it - otherwise click the delete button above.": "如果您知道這個錯誤意味著什麼，就繼續解決它吧 - 否則請點擊上面的刪除按鈕。",
+	"Proceed with caution": "請謹慎操作",
+	"Modifying objects is for advanced users only. Object properties are not validated and invalid objects could cause errors, data loss, or worse. Unless someone with intimate knowledge of the code told you to be in here, you probably shouldn't be.": "只有高級用戶才有修改許可權。物件屬性沒有驗證以及無效的物件都會導致錯誤、資料丟失或者更壞的結果。您最好不要獨立編輯，除非有熟悉代碼的人從旁協助。",
+
+
+  "DELETECURTITLE":"確定要刪除所選的{{currentTabTitle}}？此操作不可撤銷！",
+  "确认删除所选的对象？此操作不可撤销！": "確定要刪除所選的{{currentTabTitle}}？此操作不可撤銷！",
+  "OK":"確定",
+  "More Info":"更多資訊",
+  "Fix it":"修復它",
+  "确认删除所选的": "確認刪除所選的",
+  "？此操作不可撤销！": "？此操作不可撤銷！",
+  "dashboards": "儀錶盤",
+  "dashboard": "儀錶盤",
+  "searches": "搜索",
+  "search": "搜索",
+  "visualizations": "視覺化",
+  "visualization": "視覺化",
+
+
+
+  "EDITTITLEOBJECT":"編輯{{title}}物件",
+  "VIEWTITLE":"查看{{title}}對象",
+  "DELETETITLEOBJECT":"刪除{{title}}對象",
+  "SAVETITLEOBJECT":"保存{{title}}對象",
+  "Cancel":"取消",
+  "description":"描述",
+  "hits":"事件計數",
+  "kibanaSavedObjectMeta.searchSourceJSON":"AnyRobotSavedObjectMeta.searchSourceJSON",
+  "optionsJSON":"optionsJSON",
+  "panelsJSON":"panelsJSON",
+  "timeFrom":"timeFrom",
+  "timeRestore":"timeRestore",
+  "timeTo":"timeTo",
+  "title":"標題",
+  "uiStateJSON":"uiStateJSON",
+  "version":"版本",
+  "columns":"列",
+  "sort":"排序",
+  "visState":"visState",
+  "savedSearchId":"savedSearchId",
+  "SavedObject view":"已存物件視圖",
+  "Are you sure?":"你確定嗎？",
+  "You successfully deleted the":"您已成功刪除",
+  "You successfully updated the":"您已成功更新",
+  "object":"對象",
+  "Error":"錯誤",
+  "Debug":"調試"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

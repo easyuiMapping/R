@@ -1,0 +1,18 @@
+<kbn-management-app section="kibana">
+  <kbn-management-indices>
+    <div class="page-header">
+      <kbn-management-index-header index-pattern="fieldSettings.indexPattern"></kbn-management-index-header>
+
+      <h2 ng-if="fieldSettings.mode === 'create'" >
+        <span translate>Create</span><span translate>{{ fieldSettings.field.scripted ? 'Scripted' : '' }}</span><span translate>Field</span>
+      </h2>
+
+      <h2 ng-if="fieldSettings.mode === 'edit'">
+        {{ fieldSettings.field.name }}
+      </h2>
+    </div>
+
+    <field-editor index-pattern="fieldSettings.indexPattern" field="fieldSettings.field"></field-editor>
+
+  </kbn-management-indices>
+</kbn-management-app>

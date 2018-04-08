@@ -1,0 +1,48 @@
+<div class="index-pattern-name">
+  <h1 class="title" css-truncate>
+    <i aria-hidden="true" ng-if="defaultIndex === indexPattern.id" class="fa fa-star"></i>
+    {{indexPattern.id}}
+  </h1>
+  <div class="controls">
+    <button
+      ng-if="setDefault"
+      ng-click="setDefault()"
+      tooltip="{{'Set as default index'|translate}}"
+      class="btn btn-success">
+      <span class="sr-only"  translate>Set as default index</span>
+      <i aria-hidden="true" class="fa fa-star"></i>
+    </button>
+    <ar-modal
+      modal-obj="modalObj"
+      ok="refreshFields()"
+      confirm-msg="{{'这将重置字段常用性计数器。确认重载字段？'|translate}}"
+      ar-title = "{{'提示'|translate}}"
+    >
+    <button
+      ng-if="refreshFields"
+      tooltip="{{'Refresh field list'|translate}}"
+      class="btn btn-warning">
+      <span class="sr-only"  translate>Reload field list</span>
+      <i aria-hidden="true" class="fa fa-refresh"></i>
+    </button>
+    </ar-modal>
+
+    <ar-modal
+      modal-obj="modalObj"
+      ok="delete()"
+      confirm-msg="{{'确认删除所选的索引模式？此操作不可撤销！'|translate}}"
+      ar-title = "{{'提示'|translate}}"
+    >
+    <button
+      ng-if="delete"
+      aria-label="{{'Remove index pattern'|translate}}"
+      tooltip="{{'Remove index pattern'|translate}}"
+      class="btn btn-danger">
+      <span class="sr-only"  translate>Remove index pattern</span>
+      <i aria-hidden="true" class="fa fa-trash"></i>
+    </button>
+    </ar-modal>
+
+
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<!-- 标签 -->
+<div class="laber-filter-bar" ng-show="labels.length">
+<!-- 非and/or -->
+<div ng-repeat="label in labels track by $index" style="display:inline-block">
+<!-- 		<div ng-class="{true:'filter-not', false:'filter'}[type === 'NotEditable']"  ng-if="label.value !=='and' && label.value !=='or' && label.value">
+
+		</div> -->
+		<div ng-class = "{1: 'negate', 0: ''}[label.negative]" class="filter" ng-if="label.value !=='and' && label.value !=='or' && label.value">
+			<div  ng-class="{true:'filter-description-not', false:'filter-description'}[type === 'NotEditable']">
+				<span>{{label.value}}</span>
+			</div>
+			<div  ng-class="{true:'filter-actions-not', false:'filter-actions'}[type === 'NotEditable']">
+
+				<a class="action filter-invert" ng-click="method.invertLabel($index,type)">
+				  <i ng-show="label.negative" class="fa fa-fw fa-search-plus negative"></i>
+				  <i ng-hide="label.negative" class="fa fa-fw fa-search-minus positive"></i>
+				</a>
+				<a class="action filter-remove" ng-click="method.removeLabel($index,type)">
+				  <i class="fa fa-fw fa-trash"></i>
+				</a>
+			</div>
+
+		</div>
+
+
+	<!-- and/or -->
+<!-- 		<div ng-class="{true:'filter-not', false:'filter'}[type === 'NotEditable']" ng-if = "label.value ==='and' || label.value ==='or' || !label.value">
+
+		</div> -->
+
+		<div class="filter g-label-add" ng-class = "{1: 'negate', 0: ''}[label.negative]" ng-if = "label.value ==='and' || label.value ==='or' || !label.value">
+			<div  ng-class="{true:'filter-description-not', false:'filter-description'}[type === 'NotEditable']">
+				<span ng-if="label.value">{{label.value}}</span>
+				<span ng-if="label.type === 1">and</span>
+				<span ng-if="label.type === 2">or</span>
+			</div>
+			<div  ng-class="{true:'filter-actions-not', false:'filter-actions'}[type === 'NotEditable']">
+				<a class="action filter-toggle" ng-click="method.reverse($index,type)">
+				  <span ng-if="label.value ==='or' || label.type === 1" >and</span>
+				  <span ng-if="label.value ==='and' || label.type === 2" >or</span>
+				</a>
+
+			</div>
+		</div>
+
+</div>
+
+</div>
